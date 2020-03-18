@@ -2,7 +2,7 @@
 title = "与主机上其他任务共享资源的分布式优化框架"
 author = ["tang"]
 date = 2020-03-18
-lastmod = 2020-03-18T15:39:34+08:00
+lastmod = 2020-03-18T17:02:51+08:00
 tags = ["Study", "Infocom2019", "Computer_Network"]
 draft = false
 +++
@@ -85,10 +85,9 @@ Here is a summary of classic and novel **Distributed Optimization**
 
 考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：
 
-\begin{equation}
-\label{eq:1}
-\min\_\limits{m \in \chi} f(x) = \frac{1}{n} \sum\_{i=1}^n f\_i(x)
-\end{equation}
+\\[
+    \min\_\limits{m \in \chi} f(x) = \frac{1}{n} \sum\_{i=1}^n f\_i(x)
+\\]
 
 其中 \\(f\_i(x)\\) 对在 \\(\chi\\) 上的所以 i 都是凸的。网络是一个静态的无向图 \\(G = (V,
 \xi)\\) ，每个处理器 \\(process\_i\\) 仅能访问自己本地函数 \\(f\_i\\) 并计算起次梯度，同时

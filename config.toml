@@ -39,8 +39,8 @@ css = ["css/fonts.css"]
 enable = false  # En/Disable comments globally, default: false. You can always enable comments on per page.
 
 [params.math]
-enable = false # load math globally, default: false. You can always enable math on per page.
-use = "katex"  # builtin: "katex", "mathjax".  default: "katex"
+enable = true # load math globally, default: false. You can always enable math on per page.
+use = "mathjax"  # builtin: "katex", "mathjax".  default: "katex"
 
 [params.syntax]
 use = "none"  # builtin: "prismjs", "hljs". "none" means Chroma

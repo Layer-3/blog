@@ -90,10 +90,9 @@ f(y) \geq f(x) + g^T(y-x), \forall y
 <h2 id="模型与算法">模型与算法</h2>
 <h3 id="问题模型">问题模型</h3>
 <p>考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：</p>
-<p>\begin{equation}
-\label{eq:1}
+<p>\[
 \min_\limits{m \in \chi} f(x) = \frac{1}{n} \sum_{i=1}^n f_i(x)
-\end{equation}</p>
+\]</p>
 <p>其中 \(f_i(x)\) 对在 \(\chi\) 上的所以 i 都是凸的。网络是一个静态的无向图 \(G = (V,
 \xi)\) ，每个处理器 \(process_i\) 仅能访问自己本地函数 \(f_i\) 并计算起次梯度，同时
 \(Process_i\) 可以与邻居通信自己的值，邻居被记为 \(N(i)\) 。</p>
@@ -120,7 +119,9 @@ y_i\) 是处理器 i 本地存储的数据集中的数据， θ 是希望全局�
     <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
         target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
         target="_blank">Notepadium</a></p>
-</div></section></div>
+</div></section><script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-e/4/LvThKH1gwzXhdbY2AsjR3rm7LHWyhIG5C0jiRfn8AN2eTN5ILeztWw0H9jmN" crossorigin="anonymous"></script>
+        <script
+            type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script></div>
 </body>
 
 </html>
