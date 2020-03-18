@@ -10,6 +10,7 @@ publishDir = "./docs"
 
 [params]
     author = "Wei T"
+    favicon = "/favicon.png"
     # logo = "//blog.ertuil.top/avater.png"
     bio = """
     <p> Thanks for Layer 3. </p>

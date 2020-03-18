@@ -1,0 +1,9 @@
+#+HUGO_BASE_DIR: ../
+#+TITLE: test
+#+DATE:2020-3-18
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: nothing
+#+HUGO_CATEGORIES: nothing
+#+HUGO_DRAFT: false
+
+test

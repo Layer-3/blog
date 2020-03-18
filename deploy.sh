@@ -1,5 +1,5 @@
 
-if [ ! -n "$1" ] ;then
+if [ ! -n "$*" ] ;then
     echo "you have not input a word!"
 else
     hugo

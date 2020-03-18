@@ -1,0 +1,25 @@
+#+HUGO_BASE_DIR: ../
+#+TITLE: new
+#+DATE:2020-3-18
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: nothing
+#+HUGO_CATEGORIES: nothing
+#+HUGO_DRAFT: false
+# #+PROPERTY: EXPORTED_FILE_NAME: post/my-post
+# #+PROPERTY: EXPORT_HUGO_SECTION: post
+# #+PROPERTY: EXPORT_FILE_NAME: my-post
+
+* 
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: post
+:EXPORT_FILE_NAME: my-post
+:EXPORTED_FILE_NAME: post/my-post
+:END:
+
+* test!!!!
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: post
+:EXPORT_FILE_NAME: my-post2
+:EXPORTED_FILE_NAME: post/my-post2
+:END:
+
