@@ -1,0 +1,120 @@
+#+HUGO_BASE_DIR: ../
+#+TITLE: 与主机上其他任务共享资源的分布式优化框架
+#+DATE: 2020-03-18
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: Study Infocom2019 Computer_Network 
+#+HUGO_CATEGORIES: 
+#+HUGO_DRAFT: false
+
+* 介绍
+题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in
+Processing Networks
+
+** 分布式优化
+让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到
+整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故
+障等原因，参考知乎[[https://www.zhihu.com/question/59260302][刘家耿的回答]]，给出一个简单的形式化的表达式：
+$$
+  \min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i)
+$$
+
+上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在
+中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回
+答中的一个流程进一步的阐述分布式优化：
+#+begin_src english
+for each node i, simultaneously
+*repeat*
+    do gradient updates with own data;
+    regularly exchange some information with neighbors;
+    combine information according to some policy;
+*until* reach consensus and optimaticaly
+#+end_src
+
+文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信
+来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据，
+但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的
+和其他任务共享*资源*的分布式优化算法。
+
+Here is a summary of classic and novel *Distributed Optimization* 
+#+begin_quote
+One of the pioneering works on distributed optimization was Tsitsiklis et al.’s
+work [22]. Since then, several types of methods have been proposed in this area,
+such as distributed subgradient descent (DSD) [8], [14], distributed dual
+averaging [4], [21], Alternating Direction Method of Multipliers (ADMM) [9],
+[18], Nesterov’s method [15], [17] and second-order algorithm [10], [23], with
+different performances and restrictions. Among these types, DSD is the most
+important algorithm because it is easily implemented in a distributed way (ADMM
+needs sequential variable updates and second order methods need costly
+distributed Hessian calculation), and the basis of many further developed
+algorithms. For example, by adding history gradient information to DSD, the
+methods in [13] and [16] can achieve a linear convergence rate for the sum of
+strongly convex and smooth functions with a constant stepsize. Nesterov’s method
+can also be considered as a variant of the gradient method. So in this paper, we
+will focus on gradient-based algorithms.
+#+end_quote
+
+文章提出一套灵活的分布式次梯度(subgradient)算法，允许处理器通过基于概率地在多个
+正在进行的任务之间切换，从而同时处理多个正在进行的任务。
+
+** 什么是次梯度 *subgrdient*
+#+begin_quote
+当函数不可导时，无法通过常规的方法求梯度，也就无法使用梯度下降发来进行实现优化算
+法，因此针对存在不可导（不光滑）的函数提出其次梯度的概念，其标准定义为：
+
+g 是函数 f 在 x 点的次梯度，当
+$$
+    f(y) \geq f(x) + g^T(y-x), \forall y
+$$
+
+上面的 g 是一个可能的次梯度，函数在某一点的次梯度是一个集合被记为\partial f(x)，
+对于一个凸函数而言，其 \partial f(x) 非空。所以可以使用类似于经典梯度下降的方法
+使用次梯度对不可导函数进行优化。
+#+end_quote
+
+** 符号规定：
+| 符号                  | 作用                                                          |
+|-----------------------+---------------------------------------------------------------|
+| $n$                   | *number* of processors                                        |
+| $x_i^k, y_i^k$        | *value* of Processor i in iteration k                         |
+| $a_{ij}^k$            | *weight* of processor i put on value sent from j              |
+| $\partial f(x)$       | *set* of *subgradient* of function at x                       |
+| $\nabla f(x)$         | *gradient* of f at x                                          |
+| $\Vert \cdot \Vert_p$ | $l_p - norm$ for vectors                                      |
+| $\pi \{x\}$           | $\pi \{x\} = \arg \min \limits_{y \in \chi} \Vert y-x \Vert_2^2$ |
+
+* 模型与算法
+** 问题模型
+考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：
+\begin{equation}
+\min_\limits{m \in \chi} f(x) = \frac{1}{n} \sum_{i=1}^n f_i(x)
+\end{equation}
+其中 $f_i(x)$ 对在 $\chi$ 上的所以 i 都是凸的。网络是一个静态的无向图 $G = (V,
+\xi)$ ，每个处理器 $process_i$ 仅能访问自己本地函数 $f_i$ 并计算起次梯度，同时
+$Process_i$ 可以与邻居通信自己的值，邻居被记为 $N(i)$ 。
+
+计算次梯度需要的花费记为 1，在 1 条链路上两个处理器的产生的通信开销记为 $\tau$ 
+
+** 算法 
+对于一个有监督的分布式学习可以将每个处理器上的优化问题刻画为这个函数：
+$f_i(\theta) = l (h(x_i; \theta), y_i)$ ，其中 h 是预测函数，l 是损失函数， $x_i,
+y_i$ 是处理器 i 本地存储的数据集中的数据， \theta 是希望全局优化的参数，下面给出三个假设：
+- $f_i(x)$ 的次梯度是有界的；字面意思；
+  - 测试
+  - 测试第二遍
+  - ceui
+- $f_i(x)$ 是 l 光滑的，(/Lipschitz smooth 利普希茨连续用来描述函数的平滑程度的，强
+  调的是函数的梯度不会太突兀 L 是光滑程度，具体来说就是 x,y 两点的梯度差<= L|x-y|./)
+- $f_i(x)$ 是 \mu -strongly convex。
+    
+分布式优化的目标是用做少的通信开销使得每个处理器上的 $x_i^k$ 收敛到(1)式的最优解。
+这里的一个重要想法就是能否一次今更新所有处理器的一个子集上的值，该子集外的处理器
+做其他任务并保持子集的值不变，能否也可以达到全局优化的目标。文章介绍了一个基于概
+率的部分更行的次梯度算法(PUSD)的算法如下：
+
+[[file:模型与算法/2020-03-17_21-18-10_Screen Shot 2020-03-17 at 21.18.06.png]]
+
+其第 6-7 行是与其他主机交换信息的过程，第 8-13 行是根据概率选择是否计算次梯度以实现
+全局优化。
+ 
+* Footnotes
+
