@@ -2,6 +2,7 @@ baseURL = "https://ansont.cn"
 title = "Layer 7"
 theme = "hugo-notepadium"
 copyright = "©2020 TW."
+publishDir = "docs"
 
 languageCode = "en"  # for the RSS generation
 defaultContentLanguage = "en"

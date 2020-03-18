@@ -1,27 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Infocom2019 on Layer 7</title>
-    <link>https://ansont.cn/tags/infocom2019/</link>
+    <link>/tags/infocom2019/</link>
     <description>Recent content in Infocom2019 on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <copyright>©2020 TW.</copyright>
     <lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0800</lastBuildDate>
     
-	<atom:link href="https://ansont.cn/tags/infocom2019/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/infocom2019/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>与主机上其他任务共享资源的分布式优化框架</title>
-      <link>https://ansont.cn/posts/flexible-distributed-optimization-fram/</link>
+      <link>/posts/flexible-distributed-optimization-fram/</link>
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>https://ansont.cn/posts/flexible-distributed-optimization-fram/</guid>
-      <description>介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks
-分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎刘家耿的回答，给出一个简单的形式化的表达式： \[ \min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i) \]
-上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回答中的一个流程进一步的阐述分布式优化：
-for each node i, simultaneously *repeat* do gradient updates with own data; regularly exchange some information with neighbors; combine information according to some policy; *until* reach consensus and optimaticaly 文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据，但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的和其他任务共享资源的分布式优化算法。
-Here is a summary of classic and novel Distributed Optimization</description>
+      <guid>/posts/flexible-distributed-optimization-fram/</guid>
+      <description>介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks 分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布</description>
+      
     </item>
     
   </channel>

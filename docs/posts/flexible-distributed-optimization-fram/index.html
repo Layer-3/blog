@@ -1,128 +1,15 @@
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Layer 7 - 与主机上其他任务共享资源的分布式优化框架 </title>
-
-    
-    
-    <meta content="Study, Infocom2019, Computer_Network" name="keywords">
-    
-    <meta content="Layer 7 - 介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks
-分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎刘家耿的回答，给出一个简单的形式化的表达式： \[ \min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i) \]
-上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回答中的一个流程进一步的阐述分布式优化：
-for each node i, simultaneously *repeat* do gradient updates with own data; regularly exchange some information with neighbors; combine information according to some policy; *until* reach consensus and optimaticaly 文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据，但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的和其他任务共享资源的分布式优化算法。
-Here is a summary of classic and novel Distributed Optimization" name="description">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    
-        <link rel="icon" href="https://ansont.cn/favicon.png">
-    
-
-    
-
-    
-
-    
-    
-    <script type="text/javascript" async
-        src="/mathjax-3.0.0/tex-mml-chtml.js">
-    </script>
-    
-
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <link rel="stylesheet" href="/self/css/default.css">
-    <script src="/layui/layui.js"></script>
-
-
-    <link rel="stylesheet" async href="/self/css/markdown.min.css">
-    <link rel="stylesheet" async href="/self/css/gallery.css">
-    <link rel="stylesheet" async href="/font-awesome-4.7.0/css/font-awesome.min.css">
-    <script src="/self/js/lazysizes.min.js" async></script></head>
-<body>
-    
-    <header class="layui-header layui-bg-cyan">
-
-    
-    
-    <a class="nav-self-logo" href="/">
-        Layer 7
-    </a>
-
-    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
-        
-        
-        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
-        
-
-        
-            
-                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
-            
-        
-
-        
-        <li class="layui-nav-item" id="nav_small">
-            <a href="javascript:;">
-                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
-            </a>
-
-            <dl class="layui-nav-child">
-                
-                <dd><a href="/post/">Posts</a></dd>
-                
-
-                
-                    <dd><a href="/about/">About</a></dd>
-                
-            </dl>
-        </li>
-    </ul>
-</header>
-
-<script>
-layui.use('element', function(){
-  var element = layui.element;
-});
-</script>
-        <div id="content" style="min-height:80%">
-<div class="layui-container" style="margin-bottom: 10px">
-    
-
-    <div class="layui-row layui-col-space10">
-        <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
-            <div class="layui-card single-card">
-                <br />
-                <blockquote class="layui-elem-quote markdown-body single-title" >
-                    <h1>与主机上其他任务共享资源的分布式优化框架</h1>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 24px; vertical-align: -2px;"></i>
-    <span>2020-03-18</span>
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 0px;"></i>
-    
-        <a href="/tags/study">
-            <span class="layui-badge" style="vertical-align: 2px;">Study</span>
-        </a>
-    
-        <a href="/tags/infocom2019">
-            <span class="layui-badge" style="vertical-align: 2px;">Infocom2019</span>
-        </a>
-    
-        <a href="/tags/computer_network">
-            <span class="layui-badge" style="vertical-align: 2px;">Computer_Network</span>
-        </a>
-    
-</h3>
-                </blockquote>
-                <div class="layui-card-body markdown-body single-content">
-                    <h2 id="介绍">介绍</h2>
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.65.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"><title>与主机上其他任务共享资源的分布式优化框架&nbsp;&ndash;&nbsp;Layer 7</title><link rel="stylesheet" href="/css/core.min.851f5181448e7e5e2219717b346282751186a92327b3dda2d30c3d7116596593cc943005e2ba64b04182b458c20b9e04.css" integrity="sha384-hR9RgUSOfl4iGXF7NGKCdRGGqSMns92i0ww9cRZZZZPMlDAF4rpksEGCtFjCC54E"><body>
+    <div class="base-body"><section id="header" class="site header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><span class="site name">Layer 7</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">与主机上其他任务共享资源的分布式优化框架</h1><p class="article date">Mar 18, 2020</p></section><article class="article markdown-body"><h2 id="介绍">介绍</h2>
 <p>题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in
 Processing Networks</p>
 <h3 id="分布式优化">分布式优化</h3>
-<p>让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎<a href="https://www.zhihu.com/question/59260302">刘家耿的回答</a>，给出一个简单的形式化的表达式：
+<p>让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎<a href="https://www.zhihu.com/question/59260302"target="_blank">刘家耿的回答</a>，给出一个简单的形式化的表达式：
 \[
 \min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i)
 \]</p>
@@ -216,58 +103,24 @@ f(y) \geq f(x) + g^T(y-x), \forall y
 \(f_i(\theta) = l (h(x_i; \theta), y_i)\) ，其中 h 是预测函数，l 是损失函数， \(x_i,
 y_i\) 是处理器 i 本地存储的数据集中的数据， θ 是希望全局优化的参数，下面给出三个假设：</p>
 <ul>
-<li>\(f_i(x)\) 的次梯度是有界的；字面意思；
-<ul>
-<li>测试</li>
-<li>测试第二遍</li>
-<li>ceui</li>
-</ul>
-</li>
+<li>\(f_i(x)\) 的次梯度是有界的；字面意思；</li>
 <li>\(f_i(x)\) 是 l 光滑的，(<em>Lipschitz smooth 利普希茨连续用来描述函数的平滑程度的，强调的是函数的梯度不会太突兀 L 是光滑程度，具体来说就是 x,y 两点的梯度差&lt;= L|x-y|.</em>)</li>
 <li>\(f_i(x)\) 是 μ -strongly convex。</li>
 </ul>
-<p>分布式优化的目标是用做少的通信开销使得每个处理器上的 \(x_i^k\) 收敛到(1)式的最优解。这里的一个重要想法就是能否一次今更新所有处理器的一个子集上的值，该子集外的处理器做其他任务并保持子集的值不变，能否也可以达到全局优化的目标。文章介绍了一个基于概率的部分更行的次梯度算法(PUSD)的算法如下：</p>
-<figure class="foo">
-    <img src="/ox-hugo/2020-03-18_11-42-07_screen-shoot.png" width="500"/> 
-</figure>
-
-<p>里这需要加一点看看是否更新了。</p>
-<p>其第 6-7 行是与其他主机交换信息的过程，第 8-13 行是根据概率选择是否计算次梯度以实现全局优化。</p>
-</div>
-            </div>
-        </div>
-
-        
-    </div>
-</div>
-
-
-        </div><footer>
-    
-
-    <div class="layui-container">
-        <div class="layui-row">
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
-                <h3> Related Sites </h3>
-            </div>
-        </div>
-        <div class="layui-row">
-            
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-                <a href="/"><p class="footer-url">home</p></a>
-            </div>
-            
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-                <a href="/about/"><p class="footer-url">About</p></a>
-            </div>
-            
-        </div>
-    </div>
-    
-    
-    <div class="layui-container">
-        <p class="copyright">Copyright © 2018–2020, Thanks for Steve Francia and the Hugo Authors; all rights reserved.</p>
-    </div>
-</footer>
+<p>分布式优化的目标是用做少的通信开销使得每个处理器上的 \(x_i^k\) 收敛到(1)式的最优解。这里的一个重要想法就是能否一次今更新所有处理器的一个子集上的值，该子集外的处理器做其他任务并保持子集的值不变，能否也可以达到全局优化的目标。文章介绍了一个基于概率的部分更新的次梯度算法(PUSD)的算法如下：</p>
+<span class="foo"><span class="link" ><a href="/ox-hugo/2020-03-18_11-42-07_screen-shoot.png" 
+        target="_blank"><img class="img" src="/ox-hugo/2020-03-18_11-42-07_screen-shoot.png" width="500"/></a></span>
+</span>
+<p>其第 6-7 行是与其他主机交换信息的过程，第 8-14 行是根据概率选择是否计算次梯度以实现全局优化。</p>
+<p>上面算法使用了概率划分的方法，实际上也有一些其他的硬划分模式，比如为不同的任务分配部分处理器数，但是对于有些时候数据因为隐私或者技术的原因不方便与其他处理器共享。上面的算法能够很好的估计出全局最优情况，但是在网络处理器上使用硬划分就很难做到（<em>这里留个问题，不是很理解为什么不能硬划分很难做到全局优化</em>）。</p>
+<h2 id="收敛结果">收敛结果</h2>
+<h3 id=""></h3>
+</article><section class="article labels"><a class="tag" href=/tags/study/>Study</a><a class="tag" href=/tags/infocom2019/>Infocom2019</a><a class="tag" href=/tags/computer_network/>Computer_Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/openflow/"><span class="li">&larr;</span>OpenFlow</a></p><p><a class="link" href="/posts/2020-03-18/"><span class="li">&rarr;</span>问问题是否需要专业</a></p></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 TW.</p>
+    <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+</div></section></div>
 </body>
+
 </html>
