@@ -1,69 +1,59 @@
 baseURL = "https://ansont.cn"
 title = "Layer 7"
-theme = "erblog"
-paginate = 3
-languageCode = "en"
-DefaultContentLanguage = "en"
-enableInlineShortcodes = true
-footnoteReturnLinkContents = "^"
-publishDir = "./docs"
+theme = "hugo-notepadium"
+copyright = "©2020 TW."
+
+languageCode = "en"  # for the RSS generation
+defaultContentLanguage = "en"
+
+hasCJKLanguage = true
+
+enableRobotsTXT = true
+
+# Enable Disqus
+#disqusShortname = "XXX"
+
+# Google Analytics
+#googleAnalytics = "UA-123-45"
+
+[markup.highlight]
+codeFences = true
+noClasses = false
+
+[markup.goldmark.renderer]
+unsafe = true  # enable raw HTML in Markdown
 
 [params]
-    author = "Wei T"
-    favicon = "/favicon.png"
-    # logo = "//blog.ertuil.top/avater.png"
-    bio = """
-    <p> Thanks for Layer 3. </p>
-    <br />
-    """
-    copyright = "Copyright © 2018–2020, Thanks for Steve Francia and the Hugo Authors; all rights reserved."
+style = "auto"  # default: auto. light: light theme, dark: dark theme, auto: based on system.
+dateFormat = "Jan 02, 2006"  # if unset, default is "2006-01-02"
+readingTime = false  # show reading time after article date
+logo = ""
+slogan = "Thanks for layer 3"
+#license = "<a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><img alt=Creative Commons License style=border-width:0 src=https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png /></a><br />This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>."
 
+[params.assets]
+css = ["css/fonts.css"]
 
-[[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 10
+[params.comments]
+enable = false  # En/Disable comments globally, default: false. You can always enable comments on per page.
 
-# [[menu.main]]
-#     identifier = "zone"
-#     name = "Zone"
-#     url = "/zone/"
-#     weight = 10
+[params.math]
+enable = false # load math globally, default: false. You can always enable math on per page.
+use = "katex"  # builtin: "katex", "mathjax".  default: "katex"
 
-[[menu.footer]]
-    identifier = "home"
-    name = "home"
-    url = "/"
-    weight = 1
+[params.syntax]
+use = "none"  # builtin: "prismjs", "hljs". "none" means Chroma
+theme = "xcode"
+darkTheme = "xcode-dark"
 
-[[menu.footer]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 2
+[params.nav]
+showCategories = true       # /categories/
+showTags = true             # /tags/
 
-[taxonomies]
-category = "categories"
-tag = "tags"
-series = "series"
+[[params.nav.custom]]
+title = "About"
+url = "/about/"
 
-[[menu.icon]]
-    url = "mailto:weitang@mail.ustc.edu.cn"
-    name = "envelope-o"
-    weight = 1
-
-[[menu.icon]]
-    url = "https://github.com/Layer-3/"
-    name = "github"
-    weight = 1
-
-[[menu.icon]]
-    url = "https://twitter.com/username"
-    name = "twitter"
-    weight = 1
-
-[[menu.icon]]
-    url = "https://www.instagram.com/username/"
-    name = "instagram"
-    weight = 1
+[[params.nav.custom]]
+title = "Hugo"
+url = "https://gohugo.io/"
