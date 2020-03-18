@@ -1,0 +1,284 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Layer 7 - 与主机上其他任务共享资源的分布式优化框架 </title>
+
+    
+    
+    <meta content="Study, Infocom2019, Computer_Network" name="keywords">
+    
+    <meta content="Layer 7 - 介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks
+分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到 整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故 障等原因，参考知乎刘家耿的回答，给出一个简单的形式化的表达式： \[ \min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i) \]
+上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在 中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回 答中的一个流程进一步的阐述分布式优化：
+for each node i, simultaneously *repeat* do gradient updates with own data; regularly exchange some information with neighbors; combine information according to some policy; *until* reach consensus and optimaticaly 文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信 来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据， 但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的 和其他任务共享资源的分布式优化算法。" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+
+    
+
+    
+
+    
+    
+    <script type="text/javascript" async
+        src="/mathjax-3.0.0/tex-mml-chtml.js">
+    </script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src="/layui/layui.js"></script>
+
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    <link rel="stylesheet" async href="/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="/self/js/lazysizes.min.js" async></script></head>
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+    
+    <a class="nav-self-logo" href="/">
+        Layer 7
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    <dd><a href="/about/">About</a></dd>
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+        <div id="content" style="min-height:80%">
+<div class="layui-container" style="margin-bottom: 10px">
+    
+
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="layui-elem-quote markdown-body single-title" >
+                    <h1>与主机上其他任务共享资源的分布式优化框架</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 24px; vertical-align: -2px;"></i>
+    <span>2020-03-18</span>
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 0px;"></i>
+    
+        <a href="/tags/study">
+            <span class="layui-badge" style="vertical-align: 2px;">Study</span>
+        </a>
+    
+        <a href="/tags/infocom2019">
+            <span class="layui-badge" style="vertical-align: 2px;">Infocom2019</span>
+        </a>
+    
+        <a href="/tags/computer_network">
+            <span class="layui-badge" style="vertical-align: 2px;">Computer_Network</span>
+        </a>
+    
+</h3>
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <h2 id="介绍">介绍</h2>
+<p>题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in
+Processing Networks</p>
+<h3 id="分布式优化">分布式优化</h3>
+<p>让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到
+整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故
+障等原因，参考知乎<a href="https://www.zhihu.com/question/59260302">刘家耿的回答</a>，给出一个简单的形式化的表达式：
+\[
+\min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i)
+\]</p>
+<p>上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在
+中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回
+答中的一个流程进一步的阐述分布式优化：</p>
+<pre><code class="language-english" data-lang="english">for each node i, simultaneously
+*repeat*
+    do gradient updates with own data;
+    regularly exchange some information with neighbors;
+    combine information according to some policy;
+*until* reach consensus and optimaticaly
+</code></pre><p>文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信
+来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据，
+但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的
+和其他任务共享<strong>资源</strong>的分布式优化算法。</p>
+<p>Here is a summary of classic and novel <strong>Distributed Optimization</strong></p>
+<blockquote>
+<p>One of the pioneering works on distributed optimization was Tsitsiklis et al.’s
+work [22]. Since then, several types of methods have been proposed in this area,
+such as distributed subgradient descent (DSD) [8], [14], distributed dual
+averaging [4], [21], Alternating Direction Method of Multipliers (ADMM) [9],
+[18], Nesterov’s method [15], [17] and second-order algorithm [10], [23], with
+different performances and restrictions. Among these types, DSD is the most
+important algorithm because it is easily implemented in a distributed way (ADMM
+needs sequential variable updates and second order methods need costly
+distributed Hessian calculation), and the basis of many further developed
+algorithms. For example, by adding history gradient information to DSD, the
+methods in [13] and [16] can achieve a linear convergence rate for the sum of
+strongly convex and smooth functions with a constant stepsize. Nesterov’s method
+can also be considered as a variant of the gradient method. So in this paper, we
+will focus on gradient-based algorithms.</p>
+</blockquote>
+<p>文章提出一套灵活的分布式次梯度(subgradient)算法，允许处理器通过基于概率地在多个
+正在进行的任务之间切换，从而同时处理多个正在进行的任务。</p>
+<h3 id="什么是次梯度-subgrdient">什么是次梯度 <strong>subgrdient</strong></h3>
+<blockquote>
+<p>当函数不可导时，无法通过常规的方法求梯度，也就无法使用梯度下降发来进行实现优化算
+法，因此针对存在不可导（不光滑）的函数提出其次梯度的概念，其标准定义为：</p>
+<p>g 是函数 f 在 x 点的次梯度，当
+\[
+f(y) \geq f(x) + g^T(y-x), \forall y
+\]</p>
+<p>上面的 g 是一个可能的次梯度，函数在某一点的次梯度是一个集合被记为∂ f(x)，
+对于一个凸函数而言，其 ∂ f(x) 非空。所以可以使用类似于经典梯度下降的方法
+使用次梯度对不可导函数进行优化。</p>
+</blockquote>
+<h3 id="符号规定">符号规定：</h3>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(n\)</td>
+<td><strong>number</strong> of processors</td>
+</tr>
+<tr>
+<td>\(x_i^k, y_i^k\)</td>
+<td><strong>value</strong> of Processor i in iteration k</td>
+</tr>
+<tr>
+<td>\(a_{ij}^k\)</td>
+<td><strong>weight</strong> of processor i put on value sent from j</td>
+</tr>
+<tr>
+<td>\(\partial f(x)\)</td>
+<td><strong>set</strong> of <strong>subgradient</strong> of function at x</td>
+</tr>
+<tr>
+<td>\(\nabla f(x)\)</td>
+<td><strong>gradient</strong> of f at x</td>
+</tr>
+<tr>
+<td>\(\Vert \cdot \Vert_p\)</td>
+<td>\(l_p - norm\) for vectors</td>
+</tr>
+<tr>
+<td>\(\pi \{x\}\)</td>
+<td>\(\pi \{x\} = \arg \min \limits_{y \in \chi} \Vert y-x \Vert_2^2\)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="模型与算法">模型与算法</h2>
+<h3 id="问题模型">问题模型</h3>
+<p>考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：</p>
+<p>\begin{equation}
+\min_\limits{m \in \chi} f(x) = \frac{1}{n} \sum_{i=1}^n f_i(x)
+\end{equation}</p>
+<p>其中 \(f_i(x)\) 对在 \(\chi\) 上的所以 i 都是凸的。网络是一个静态的无向图 \(G = (V,
+\xi)\) ，每个处理器 \(process_i\) 仅能访问自己本地函数 \(f_i\) 并计算起次梯度，同时
+\(Process_i\) 可以与邻居通信自己的值，邻居被记为 \(N(i)\) 。</p>
+<p>计算次梯度需要的花费记为 1，在 1 条链路上两个处理器的产生的通信开销记为 \(\tau\)</p>
+<h3 id="算法">算法</h3>
+<p>对于一个有监督的分布式学习可以将每个处理器上的优化问题刻画为这个函数：
+\(f_i(\theta) = l (h(x_i; \theta), y_i)\) ，其中 h 是预测函数，l 是损失函数， \(x_i,
+y_i\) 是处理器 i 本地存储的数据集中的数据， θ 是希望全局优化的参数，下面给出三个假设：</p>
+<ul>
+<li>\(f_i(x)\) 的次梯度是有界的；字面意思；
+<ul>
+<li>测试</li>
+<li>测试第二遍</li>
+<li>ceui</li>
+</ul>
+</li>
+<li>\(f_i(x)\) 是 l 光滑的，(<em>Lipschitz smooth 利普希茨连续用来描述函数的平滑程度的，强
+调的是函数的梯度不会太突兀 L 是光滑程度，具体来说就是 x,y 两点的梯度差&lt;= L|x-y|.</em>)</li>
+<li>\(f_i(x)\) 是 μ -strongly convex。</li>
+</ul>
+<p>分布式优化的目标是用做少的通信开销使得每个处理器上的 \(x_i^k\) 收敛到(1)式的最优解。
+这里的一个重要想法就是能否一次今更新所有处理器的一个子集上的值，该子集外的处理器
+做其他任务并保持子集的值不变，能否也可以达到全局优化的目标。文章介绍了一个基于概
+率的部分更行的次梯度算法(PUSD)的算法如下：</p>
+<figure>
+    <img src="%e6%a8%a1%e5%9e%8b%e4%b8%8e%e7%ae%97%e6%b3%95/2020-03-17_21-18-10_Screen%20Shot%202020-03-17%20at%2021.18.06.png"/> 
+</figure>
+
+<p>其第 6-7 行是与其他主机交换信息的过程，第 8-13 行是根据概率选择是否计算次梯度以实现
+全局优化。</p>
+</div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+                <h3> Related Sites </h3>
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/"><p class="footer-url">home</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">Copyright © 2018–2020, Thanks for Steve Francia and the Hugo Authors; all rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>
