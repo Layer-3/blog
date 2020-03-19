@@ -2,8 +2,9 @@
 title = "与主机上其他任务共享资源的分布式优化框架"
 author = ["tang"]
 date = 2020-03-18
-lastmod = 2020-03-18T17:02:51+08:00
-tags = ["Study", "Infocom2019", "Computer_Network"]
+lastmod = 2020-03-19T08:53:04+08:00
+tags = ["Infocom2019", "Computer_Network"]
+categories = ["Study"]
 draft = false
 +++
 

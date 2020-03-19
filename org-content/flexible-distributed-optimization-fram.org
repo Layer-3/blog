@@ -2,8 +2,8 @@
 #+TITLE: 与主机上其他任务共享资源的分布式优化框架
 #+DATE: 2020-03-18
 #+HUGO_AUTO_SET_LASTMOD: t
-#+HUGO_TAGS: Study Infocom2019 Computer_Network 
-#+HUGO_CATEGORIES: 
+#+HUGO_TAGS: Infocom2019 Computer_Network 
+#+HUGO_CATEGORIES:Study 
 #+HUGO_DRAFT: false
 
 * 介绍

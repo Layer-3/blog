@@ -22,5 +22,15 @@
       
     </item>
     
+    <item>
+      <title>与主机上其他任务共享资源的分布式优化框架</title>
+      <link>/posts/flexible-distributed-optimization-fram/</link>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/flexible-distributed-optimization-fram/</guid>
+      <description>介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks 分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布</description>
+      
+    </item>
+    
   </channel>
 </rss>

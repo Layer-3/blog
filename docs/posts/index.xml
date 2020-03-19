@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
-    <lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 00:00:00 +0800</lastBuildDate>
     
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>问问题是否需要专业</title>
+      <link>/posts/2020-03-18/</link>
+      <pubDate>Thu, 19 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/2020-03-18/</guid>
+      <description>记录一件小事。 世界真的很有趣。学习了一天，终于搭好了我的小博客，马不停蹄地看论文，希望能给博客充值一些干货。然而看一堆数学公式着实让人心累，</description>
+      
+    </item>
     
     <item>
       <title>OpenFlow</title>
@@ -29,16 +39,6 @@
       
       <guid>/posts/flexible-distributed-optimization-fram/</guid>
       <description>介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks 分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布</description>
-      
-    </item>
-    
-    <item>
-      <title>问问题是否需要专业</title>
-      <link>/posts/2020-03-18/</link>
-      <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
-      
-      <guid>/posts/2020-03-18/</guid>
-      <description>记录一件小事。 世界真的很有趣。学习了一天，终于搭好了我的小博客，马不停蹄地看论文，希望能给博客充值一些干货。然而看一堆数学公式着实让人心累，</description>
       
     </item>
     
