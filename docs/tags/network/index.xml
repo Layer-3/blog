@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
-    <lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 09:21:14 +0800</lastBuildDate>
     
         <atom:link href="/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>OpenFlow</title>
       <link>/posts/openflow/</link>
-      <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
+      <pubDate>Thu, 19 Mar 2020 09:21:14 +0800</pubDate>
       
       <guid>/posts/openflow/</guid>
       <description> </description>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>English on Layer 7</title>
+    <link>/tags/english/</link>
+    <description>Recent content in English on Layer 7</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>©2020 TW.</copyright>
+    <lastBuildDate>Thu, 19 Mar 2020 09:26:58 +0800</lastBuildDate>
+    
+        <atom:link href="/tags/english/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Expression</title>
+      <link>/posts/expression/</link>
+      <pubDate>Thu, 19 Mar 2020 09:26:58 +0800</pubDate>
+      
+      <guid>/posts/expression/</guid>
+      <description>Words Amenable : willing to accept or be influenced by a suggestion:意为顺从的，愿意接受建议的，耳朵软的之类的意思。在 OpenFlow 一文中，作者将 Amenable 放在句首，来表达需要实现的功</description>
+      
+    </item>
+    
+  </channel>
+</rss>
