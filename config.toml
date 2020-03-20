@@ -15,7 +15,7 @@ enableRobotsTXT = true
 disqusShortname = "wei"
 
 # Google Analytics
-googleAnalytics = "UA-123-45"
+googleAnalytics = "UA-161408542-1"
 
 [markup.highlight]
 codeFences = true
