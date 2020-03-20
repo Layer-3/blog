@@ -1,6 +1,6 @@
 #+HUGO_BASE_DIR: ../
 #+TITLE: 问问题是否需要专业
-#+DATE: 2020-03-19 
+#+DATE: 2020-03-18
 #+HUGO_AUTO_SET_LASTMOD: t
 #+HUGO_TAGS: nothing
 #+HUGO_CATEGORIES: Idea

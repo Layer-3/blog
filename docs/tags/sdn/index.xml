@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
-    <lastBuildDate>Thu, 19 Mar 2020 09:21:14 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 11:34:57 +0800</lastBuildDate>
     
         <atom:link href="/tags/sdn/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,10 +15,10 @@
     <item>
       <title>OpenFlow</title>
       <link>/posts/openflow/</link>
-      <pubDate>Thu, 19 Mar 2020 09:21:14 +0800</pubDate>
+      <pubDate>Thu, 19 Mar 2020 11:34:57 +0800</pubDate>
       
       <guid>/posts/openflow/</guid>
-      <description> </description>
+      <description>介绍 这是 SDN 开山之作“OpenFlow: Enabling Innovation in Campus Networks”的阅读笔记，想要学习 SDN 到底是什么，能做什么，为什么，怎么做，还可以怎么做，研</description>
       
     </item>
     

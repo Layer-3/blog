@@ -8,7 +8,7 @@
 
 * Words
 - =Amenable= : 
- - willing to accept or be influenced by a suggestion:意为顺从的，愿意接受建议的，耳朵软的之类的意思。在 Openflow 一文中，作者将 Amenable 放在句首，来表达应当要是实现的功能。：
+ - willing to accept or be influenced by a suggestion:意为顺从的，愿意接受建议的，耳朵软的之类的意思。在 OpenFlow 一文中，作者将 Amenable 放在句首，来表达需要实现的功能。：
 #+begin_quote
 /Amenable to high-performance and low-cost implementations./
 #+end_quote
@@ -18,4 +18,9 @@
 - =更不用说=
 #+begin_quote
 Commercial switches and routers =do not= typically provide an open software platform, =let alone= provide a means to virtualize either their hardware or software.
+#+end_quote
+
+- =长期看来前景很不错= /（现在没啥用）/
+#+begin_quote
+=This approach is promising in the long-term=, but for the time being is targeted at large switching centers and is too expensive for widespread deployment in college wiring closets.
 #+end_quote

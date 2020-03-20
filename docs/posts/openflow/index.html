@@ -8,8 +8,12 @@
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">OpenFlow</h1><p class="article date">Mar 19, 2020</p></section><article class="article markdown-body"><h2 id=""></h2>
-</article><section class="article labels"><a class="category" href=/categories/study/>Study</a><a class="tag" href=/tags/sdn/>SDN</a><a class="tag" href=/tags/network/>Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/expression/"><span class="li">&larr;</span>Expression</a></p><p><a class="link" href="/posts/2020-03-18/"><span class="li">&rarr;</span>问问题是否需要专业</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
+    <h1 class="article title">OpenFlow</h1><p class="article date">Mar 19, 2020</p></section><article class="article markdown-body"><h2 id="介绍">介绍</h2>
+<p>这是 SDN 开山之作“OpenFlow: Enabling Innovation in Campus Networks”的阅读笔记，想要学习 SDN 到底是什么，能做什么，为什么，怎么做，还可以怎么做，研读开山之作显然是必不可少的。</p>
+<p>文章的开篇主要阐述了作者实现 openflow 的主要目的，就是为了让研究人员能够在实际网络中测试他们提出的新方法，所以希望商用交换机和路由器可以提供一种通用的可编程的交换机，可以对流表执行一定的动作（action），并且为了不干扰生产生活中的网络，能够保证生产网络和研究网络的独立性。为此作者提出了这样的协议，文章有这样一句话：“hence the commonly held belief that the network infrastructure has &ldquo;ossified&rdquo; ”，作者就是想要打破这种&quot;ossified&rdquo;，这样的胸怀也就不奇怪 OpenFlow 和 SDN 能够在学界引起如此庞大的影响了。</p>
+<h2 id="openflow-交换机">OpenFlow 交换机</h2>
+<p>现在的交换机和路由器大多都提供了一个流表(<code>Flow Table</code>) OpenFlow 为各种不同的</p>
+</article><section class="article labels"><a class="category" href=/categories/study/>Study</a><a class="tag" href=/tags/sdn/>SDN</a><a class="tag" href=/tags/network/>Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/expression/"><span class="li">&rarr;</span>Expression</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -35,7 +39,18 @@
         target="_blank">Notepadium</a></p>
 </div></section><script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-e/4/LvThKH1gwzXhdbY2AsjR3rm7LHWyhIG5C0jiRfn8AN2eTN5ILeztWw0H9jmN" crossorigin="anonymous"></script>
         <script
-            type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script></div>
+            type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</div>
 </body>
 
 </html>
