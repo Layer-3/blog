@@ -12,7 +12,7 @@ hasCJKLanguage = true
 enableRobotsTXT = true
 
 # Enable Disqus
-disqusShortname = "wei"
+disqusShortname = "ansont-cn.disqus.com"
 
 # Google Analytics
 googleAnalytics = "UA-161408542-1"

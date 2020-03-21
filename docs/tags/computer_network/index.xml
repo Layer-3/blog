@@ -18,7 +18,7 @@
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
       <guid>/posts/flexible-distributed-optimization-fram/</guid>
-      <description>介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks 分布式优化 让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布</description>
+      <description>Table of Contents 1. 介绍 1.1 分布式优化 1.2 什么是次梯度 subgrdient 1.3 符号规定： 2. 模型与算法 2.1 问题模型 2.2 算法 3. 收敛结果 [](#) 1. 介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks 1.1 分布</description>
       
     </item>
     

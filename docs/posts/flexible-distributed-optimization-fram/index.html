@@ -8,10 +8,35 @@
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">与主机上其他任务共享资源的分布式优化框架</h1><p class="article date">Mar 18, 2020<span class="lastmod"> • edited Mar 19, 2020</span></p></section><article class="article markdown-body"><h2 id="介绍">介绍</h2>
+    <h1 class="article title">与主机上其他任务共享资源的分布式优化框架</h1><p class="article date">Mar 18, 2020<span class="lastmod"> • edited Mar 21, 2020</span></p></section><article class="article markdown-body"><div class="ox-hugo-toc toc">
+<div></div>
+<div class="heading">Table of Contents</div>
+<ul>
+<li><a href="#1-dot-%e4%bb%8b%e7%bb%8d">1. 介绍</a>
+<ul>
+<li><a href="#1-dot-1-%e5%88%86%e5%b8%83%e5%bc%8f%e4%bc%98%e5%8c%96">1.1 分布式优化</a></li>
+<li><a href="#1-dot-2-%e4%bb%80%e4%b9%88%e6%98%af%e6%ac%a1%e6%a2%af%e5%ba%a6-subgrdient">1.2 什么是次梯度 <strong>subgrdient</strong></a></li>
+<li><a href="#1-dot-3-%e7%ac%a6%e5%8f%b7%e8%a7%84%e5%ae%9a">1.3 符号规定：</a></li>
+</ul>
+</li>
+<li><a href="#2-dot-%e6%a8%a1%e5%9e%8b%e4%b8%8e%e7%ae%97%e6%b3%95">2. 模型与算法</a>
+<ul>
+<li><a href="#2-dot-1-%e9%97%ae%e9%a2%98%e6%a8%a1%e5%9e%8b">2.1 问题模型</a></li>
+<li><a href="#2-dot-2-%e7%ae%97%e6%b3%95">2.2 算法</a></li>
+</ul>
+</li>
+<li><a href="#3-dot-%e6%94%b6%e6%95%9b%e7%bb%93%e6%9e%9c">3. 收敛结果</a>
+<ul>
+<li>[](#)</li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+<h2 id="1-dot-介绍">1. 介绍</h2>
 <p>题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in
 Processing Networks</p>
-<h3 id="分布式优化">分布式优化</h3>
+<h3 id="1-dot-1-分布式优化">1.1 分布式优化</h3>
 <p>让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎<a href="https://www.zhihu.com/question/59260302"target="_blank">刘家耿的回答</a>，给出一个简单的形式化的表达式：
 \[
 \min_{x_i,\cdots,x_n} \sum_{i=1}^n f_i(x_i)
@@ -42,7 +67,7 @@ can also be considered as a variant of the gradient method. So in this paper, we
 will focus on gradient-based algorithms.</p>
 </blockquote>
 <p>文章提出一套灵活的分布式次梯度(subgradient)算法，允许处理器通过基于概率地在多个正在进行的任务之间切换，从而同时处理多个正在进行的任务。</p>
-<h3 id="什么是次梯度-subgrdient">什么是次梯度 <strong>subgrdient</strong></h3>
+<h3 id="1-dot-2-什么是次梯度-subgrdient">1.2 什么是次梯度 <strong>subgrdient</strong></h3>
 <blockquote>
 <p>当函数不可导时，无法通过常规的方法求梯度，也就无法使用梯度下降发来进行实现优化算法，因此针对存在不可导（不光滑）的函数提出其次梯度的概念，其标准定义为：</p>
 <p>g 是函数 f 在 x 点的次梯度，当
@@ -51,7 +76,7 @@ f(y) \geq f(x) + g^T(y-x), \forall y
 \]</p>
 <p>上面的 g 是一个可能的次梯度，函数在某一点的次梯度是一个集合被记为∂ f(x)，对于一个凸函数而言，其 ∂ f(x) 非空。所以可以使用类似于经典梯度下降的方法使用次梯度对不可导函数进行优化。</p>
 </blockquote>
-<h3 id="符号规定">符号规定：</h3>
+<h3 id="1-dot-3-符号规定">1.3 符号规定：</h3>
 <table>
 <thead>
 <tr>
@@ -90,8 +115,8 @@ f(y) \geq f(x) + g^T(y-x), \forall y
 </tr>
 </tbody>
 </table>
-<h2 id="模型与算法">模型与算法</h2>
-<h3 id="问题模型">问题模型</h3>
+<h2 id="2-dot-模型与算法">2. 模型与算法</h2>
+<h3 id="2-dot-1-问题模型">2.1 问题模型</h3>
 <p>考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：</p>
 <p>\[
 \min_\limits{m \in \chi} f(x) = \frac{1}{n} \sum_{i=1}^n f_i(x)
@@ -100,7 +125,7 @@ f(y) \geq f(x) + g^T(y-x), \forall y
 \xi)\) ，每个处理器 \(process_i\) 仅能访问自己本地函数 \(f_i\) 并计算起次梯度，同时
 \(Process_i\) 可以与邻居通信自己的值，邻居被记为 \(N(i)\) 。</p>
 <p>计算次梯度需要的花费记为 1，在 1 条链路上两个处理器的产生的通信开销记为 \(\tau\)</p>
-<h3 id="算法">算法</h3>
+<h3 id="2-dot-2-算法">2.2 算法</h3>
 <p>对于一个有监督的分布式学习可以将每个处理器上的优化问题刻画为这个函数：
 \(f_i(\theta) = l (h(x_i; \theta), y_i)\) ，其中 h 是预测函数，l 是损失函数， \(x_i,
 y_i\) 是处理器 i 本地存储的数据集中的数据， θ 是希望全局优化的参数，下面给出三个假设：</p>
@@ -115,7 +140,7 @@ y_i\) 是处理器 i 本地存储的数据集中的数据， θ 是希望全局�
 </span>
 <p>其第 6-7 行是与其他主机交换信息的过程，第 8-14 行是根据概率选择是否计算次梯度以实现全局优化。</p>
 <p>上面算法使用了概率划分的方法，实际上也有一些其他的硬划分模式，比如为不同的任务分配部分处理器数，但是对于有些时候数据因为隐私或者技术的原因不方便与其他处理器共享。上面的算法能够很好的估计出全局最优情况，但是在网络处理器上使用硬划分就很难做到（<em>这里留个问题，不是很理解为什么不能硬划分很难做到全局优化</em>）。</p>
-<h2 id="收敛结果">收敛结果</h2>
+<h2 id="3-dot-收敛结果">3. 收敛结果</h2>
 <h3 id=""></h3>
 </article><section class="article labels"><a class="category" href=/categories/study/>Study</a><a class="tag" href=/tags/infocom2019/>Infocom2019</a><a class="tag" href=/tags/computer_network/>Computer_Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/2020-03-18/"><span class="li">&larr;</span>问问题是否需要专业</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
 <script type="application/javascript">
@@ -130,7 +155,7 @@ y_i\) 是处理器 i 本地存储的数据集中的数据， θ 是希望全局�
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "wei" + '.disqus.com/embed.js';
+        s.src = '//' + "ansont-cn.disqus.com" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
