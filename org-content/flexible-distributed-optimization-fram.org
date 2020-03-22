@@ -5,6 +5,7 @@
 #+HUGO_TAGS: Infocom2019 Computer_Network 
 #+HUGO_CATEGORIES:Study 
 #+HUGO_DRAFT: false
+#+toc: headlines 2
 * 1. 介绍
 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in
 Processing Networks

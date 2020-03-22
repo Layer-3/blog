@@ -8,12 +8,61 @@
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">OpenFlow</h1><p class="article date">Mar 19, 2020</p></section><article class="article markdown-body"><h2 id="介绍">介绍</h2>
+    <h1 class="article title">OpenFlow</h1><p class="article date">Mar 19, 2020<span class="lastmod"> • edited Mar 22, 2020</span></p></section><article class="article markdown-body"><h2 id="1-dot-介绍">1. 介绍</h2>
 <p>这是 SDN 开山之作“OpenFlow: Enabling Innovation in Campus Networks”的阅读笔记，想要学习 SDN 到底是什么，能做什么，为什么，怎么做，还可以怎么做，研读开山之作显然是必不可少的。</p>
-<p>文章的开篇主要阐述了作者实现 openflow 的主要目的，就是为了让研究人员能够在实际网络中测试他们提出的新方法，所以希望商用交换机和路由器可以提供一种通用的可编程的交换机，可以对流表执行一定的动作（action），并且为了不干扰生产生活中的网络，能够保证生产网络和研究网络的独立性。为此作者提出了这样的协议，文章有这样一句话：“hence the commonly held belief that the network infrastructure has &ldquo;ossified&rdquo; ”，作者就是想要打破这种&quot;ossified&rdquo;，这样的胸怀也就不奇怪 OpenFlow 和 SDN 能够在学界引起如此庞大的影响了。</p>
-<h2 id="openflow-交换机">OpenFlow 交换机</h2>
-<p>现在的交换机和路由器大多都提供了一个流表(<code>Flow Table</code>) OpenFlow 为各种不同的</p>
-</article><section class="article labels"><a class="category" href=/categories/study/>Study</a><a class="tag" href=/tags/sdn/>SDN</a><a class="tag" href=/tags/network/>Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/expression/"><span class="li">&rarr;</span>Expression</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
+<p>文章的开篇主要阐述了作者实现 openflow 的主要目的，就是为了让研究人员能够在实际网络中测试他们提出的新方法，所以希望商用交换机和路由器可以提供一种通用的可编程的交换机，可以对流表执行一定的动作（action），并且为了不干扰生产生活中的网络，能够保证生产网络和研究网络的独立性。为此作者提出了这样的协议，文章有这样一句话：“hence
+the commonly held belief that the network infrastructure has &ldquo;ossified&rdquo; ”，作者就是想要打破这种&quot;ossified&rdquo;，这样的胸怀也就不奇怪 OpenFlow 和 SDN 能够在学界引起如此庞大的影响了。</p>
+<h2 id="2-dot-openflow-交换机">2. OpenFlow 交换机</h2>
+<h3 id="2-dot-1-总览">2.1 总览</h3>
+<p>现在的交换机和路由器大多都提供了一个流表(<code>Flow Table</code>)，可以以线性速度实现防火墙、NAT、QoS 和数据统计信息等功能。 OpenFlow 为各种不同的交换机和路由器提供一种开放的协议来对流表进行编程。</p>
+<h4 id="2-dot-1-dot-1-基本组成">2.1.1 基本组成</h4>
+<p>OpenFlow 交换机至少需要包括三个部分：</p>
+<ul>
+<li><code>流表(FlowTable)</code>，流表上的每个项(entry)关联的一个<strong>动作(action)</strong>，告诉交换机如何处理这个流<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>；</li>
+<li><code>安全信道(Secure Channel)</code>，将交换机和远程控制进程(<em>controller</em>)链接，允许指令和包在交换机和控制器 controller 之间传送；</li>
+<li><code>OpenFlow 协议</code>，为 Controller 和交换机之间通信提供一种标准方法。通过指定标准接口（OpenFlow 协议），可以从外部定义流表中的条目，而不用直接对交换机进行编程。</li>
+</ul>
+<span class="foo"><span class="link" ><a href="/ox-hugo/2020-03-21_17-18-41_screen-shoot.png" 
+        target="_blank"><img class="img" src="/ox-hugo/2020-03-21_17-18-41_screen-shoot.png" width="500"/></a></span>
+</span>
+<h4 id="2-dot-1-dot-2-flow-table">2.1.2 Flow Table</h4>
+<p>OpenFlow 将交换机分为两种，一种是<strong>Dedicated OpenFlow switches</strong>，这种 OpenFlow 交换机不支持常规的 Layer 2 和 Layer 3 的处理，它在端口间按照远程 Controller<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 定义的要求转发 packets。另一种则是在现有的商业路由器或交换机上添加 OpenFlow 的三要素的<strong>OpenFlow-enabled swithes</strong>，增加 OpenFlow 的支持。</p>
+<p>每个 Flow-Table 中的 entry 由三个部分组成：</p>
+<ul>
+<li>定义 flow 的包头(header<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>)，其中 header 的初步设计如下表所示；</li>
+<li>定义怎么处理 packets 的动作(action)；</li>
+<li>统计 Flow 中的 packets 数目和字节数的统计量。</li>
+</ul>
+<span class="foo"><span class="link" ><a href="/ox-hugo/2020-03-21_18-12-39_screen-shoot.png" 
+        target="_blank"><img class="img" src="/ox-hugo/2020-03-21_18-12-39_screen-shoot.png" width="500"/></a></span>
+</span>
+<p>针对每个 Flow Table 中的 Flow 关联的基础 Action 有：(<code>Type 0 要求</code>)</p>
+<ul>
+<li>转发 flow 中的 packets 到指定的端口（们），这提供了网络中的路由功能；</li>
+<li>封装并转发 flow 中的 packets 到 controller，<em>通常情况下是把新的 flow 中的第一个 packet 过去，从而考虑是不是需要添加到 Flow Table 中去</em>；</li>
+<li>drop packet，处于安全、防治 dos 攻击等考虑。</li>
+<li>把 Flow 中的 packets 通过交换机传统的传统方式转发出去（<em>这是针对 OpenFlow 支持的商业交换机，可以分离<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>实验与生产数据</em>）</li>
+</ul>
+<h3 id="3-dot-使用">3. 使用</h3>
+<p>根据论文提供的案例，可以总结出如下大致步骤。首先定义一个流，将具有特定属性的数据包发送到控制器，然后在控制器中执行逻辑，然后将针对流的动作下放到个交换机，从而在一整个网络中完成对 Flow 的控制。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>流指的是网络中，具有相同属性的一类报文等，因此流的定义可能是广义的，具有相同的属性（可以指的是相同源 IP 地址，MAC 地址，端口等）的 pakcets 都可以被称之为是流。 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>一个交换机可以被多个远程控制器控制。 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Header 中的表项均可以通过通配符来进行匹配，从而聚集想要的流，实施策略。 <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>除了添加这个动作来分离实验与生产数据之外，还可以通过开议分离虚拟子网(VLANs)集合来分离这两种流量。 <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</article><section class="article labels"><a class="category" href=/categories/study/>Study</a><a class="tag" href=/tags/sdn/>SDN</a><a class="tag" href=/tags/network/>Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/expression/"><span class="li">&larr;</span>Expression</a></p><p><a class="link" href="/posts/2020-03-18/"><span class="li">&rarr;</span>问问题是否需要专业</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
