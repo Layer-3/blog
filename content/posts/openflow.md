@@ -2,7 +2,7 @@
 title = "OpenFlow"
 author = ["tang"]
 date = 2020-03-19
-lastmod = 2020-03-22T11:32:53+08:00
+lastmod = 2020-03-22T18:49:11+08:00
 tags = ["SDN", "Network"]
 categories = ["Study"]
 draft = false

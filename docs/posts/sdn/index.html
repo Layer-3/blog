@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.65.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.png" type="image/x-icon"><title>软件定义网络&nbsp;&ndash;&nbsp;Layer 7</title><link rel="stylesheet" href="/css/core.min.e716e8f9885bef0e2ee8fa449b9acd5476a0ada29ecad9db14598562cc1bf21fddd02f681b6832437b7b775832814fc0.css" integrity="sha384-5xbo&#43;Yhb7w4u6PpEm5rNVHagraKeytnbFFmFYswb8h/d0C9oG2gyQ3t7d1gygU/A"><body>
+    <div class="base-body"><section id="header" class="site header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Mar 23, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
+<hr>
+<h2 id="1-dot-为什么">1. 为什么</h2>
+<p>在介绍 SDN 之前，需要先说明为什么需要 SDN，也就是现在的网络架构有什么问题？</p>
+<ul>
+<li>传统的 IP 网络太<code>复杂</code>难以管理、配置和实施高层策略。（管理员要针对每个设备根据设备厂商的不同慢慢配置）</li>
+<li>现有的网络在垂直层面是<code>紧耦合</code>的，也就是控制层和数据层是在交换机和路由器这些网络设备上绑定在一起的，这就很不 flexibility 了，并且这也让网络协议的更新换代变得十分困难。</li>
+</ul>
+<p>SDN 为改变上面的问题，做了哪些工作呢？</p>
+<ul>
+<li><code>分离</code>控制层与数据层，也就是把控制逻辑从转发流量的步骤中拿了出来。</li>
+<li>网络中的路由器就只是简单的转发设备，而控制逻辑放在逻辑上中心化<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>的控制设备上，也就简化了配置和迭代。</li>
+</ul>
+<h2 id="2-dot-介绍">2. 介绍</h2>
+<h3 id="2-dot-1-网络的拆分">2.1 网络的拆分</h3>
+<p>计算机网络可以被分为三层：</p>
+<ul>
+<li>管理层：监测和配置管理层，<strong>定义网络策略</strong>；</li>
+<li>控制层：表示管理数据层元素的转发表的协议，<strong>实施(enforce)策略</strong>；</li>
+<li>数据层：用来转发数据，<strong>通过转发相应的数据来执行(excutes)策略</strong>。</li>
+</ul>
+<span class="image-container"><span class="link" ><a href="/ox-hugo/2020-03-23_22-02-16_screen-shoot.png" 
+        target="_blank"><img class="img" src="/ox-hugo/2020-03-23_22-02-16_screen-shoot.png" width="300"/></a></span>
+</span>
+<h3 id="2-dot-2-什么是-sdn">2.2 什么是 SDN</h3>
+<p>文章认为 SDN 的加油由四大支柱构成：</p>
+<ol>
+<li>控制与数据层分离；</li>
+<li>转发决策是基于 flow 的，而不是基于目的地址的。flow 这个抽象使得不同类型的网络设备（比如路由器、交换机、防火墙等）可以统一行为，极大的增加了灵活性（但可能受到流表<code>功能</code>上的限制？）；</li>
+<li>控制逻辑被移动到外部实体，被称之为 SDN Controller 或者 NOS，可以基于此抽象对转发设备进行编程；</li>
+<li>网络可以通过运行在 NOS(其与数据层设备交互) 之上的软件程序来进行编程。</li>
+</ol>
+<p>通过抽象的方法可以帮助我们更好地理解计算机科学中的很多事物，SDN 也不例外。SDN 可以被认为是由三大抽象构成的：</p>
+<ul>
+<li><code>Forwarding abstraction</code> ，可以类比于 OS 中的驱动，实现网络程序要求的各种转发行为；</li>
+<li><code>Distribution abstraction</code> ，所有的分布式系统都依赖于网络，而实际上，网络本身就是个大的分布式系统，所以通过这个通用的 Distribution Layer（比如 NOS），来处理分布式系统中的状态，提供一个中心化的使用体验。具体来说需要具有两大功能：
+<ul>
+<li>给转发设备安装控制指令(installing the control commands on the forwarding devices)；</li>
+<li>收集转发层(forwarding layer)层的状态信息，从而给网络应用提供一种全局的 view。</li>
+</ul>
+</li>
+<li><code>Specification abstraction</code> ，让网络应用可以表达它希望网络执行的行为而不用具体实现该行为。通过虚拟化或者编程语言的方式来实现，文章中说是把抽象的配置（configuration)映射到由 SDN 控制器暴露出来的全局网络的实际的物理配置上，(<em>这么看确实像程序语言干的事，此处未完全理解，存疑</em>)。</li>
+</ul>
+<span class="image-container"><span class="link" ><a href="/ox-hugo/2020-03-23_22-24-41_screen-shoot.png" 
+        target="_blank"><img class="img" src="/ox-hugo/2020-03-23_22-24-41_screen-shoot.png" width="400"/></a></span>
+</span>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>说逻辑上中心化，是因为物理上大多是分布式实现的，因为中心化的控制设备会带来很多问题，比如单点故障、性能扩展性不佳等。 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</article><section class="article labels"><a class="category" href=/categories/study/>Study</a><a class="tag" href=/tags/sdn/>SDN</a><a class="tag" href=/tags/network/>Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/expression/"><span class="li">&larr;</span>Expression</a></p><p><a class="link" href="/posts/openflow/"><span class="li">&rarr;</span>OpenFlow</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ansont-cn" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 TW.</p>
+    <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+</div></section><script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-e/4/LvThKH1gwzXhdbY2AsjR3rm7LHWyhIG5C0jiRfn8AN2eTN5ILeztWw0H9jmN" crossorigin="anonymous"></script>
+        <script
+            type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-161408542-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</div>
+</body>
+
+</html>

@@ -11,7 +11,7 @@
  - willing to accept or be influenced by a suggestion;
  - 意为顺从的，愿意接受建议的，耳朵软的之类的意思。在 OpenFlow 一文中，作者将 Amenable 放在句首，来表达需要实现的功能。
 #+begin_quote
-/Amenable to high-performance and low-cost implementations./
+=Amenable= to high-performance and low-cost implementations.
 #+end_quote
 
 - =sophisticated=
@@ -19,16 +19,40 @@
   - intelligent or made in a complicated way and therefore able to do complicated tasks:
   - 意为复杂精巧的，精于世故的，精通的，富有经验的。此处来形容功能精细复杂的东西。
 #+begin_quote
-One can also imagine more sophisticated controllers that dynamically add/remove ﬂows as an experiment progresses.
+One can also imagine more =sophisticated= controllers that dynamically add/remove ﬂows as an experiment progresses.
 #+end_quote
 
 - =envisage=
   - to imagine or expect something in the future, especially something good;
   - 想象，设想，用来描述技术的前景
 #+begin_quote
-One could envisage an extension to Ethane in which a policy dictates that particular ﬂows are sent to a user’s process in a controller, hence allowing researcher-speciﬁc processing to be performed in the network.
+One could =envisage= an extension to Ethane in which a policy dictates that particular ﬂows are sent to a user’s process in a controller, hence allowing researcher-speciﬁc processing to be performed in the network.
 #+end_quote
 
+- =inertia=
+  - lack of activity or interest, or unwillingness to make an effort to do anything
+  - 惰性、惯性、懒惰。作者用来表述某个东西难以推动发展
+#+begin_quote
+Due to the =inertia= of current IP networks, a new routing protocol can take five to ten years to be fully designed, evaluated, and deployed.
+#+end_quote
+
+- =alleviate=
+  - to make something bad such as pain or problems less severe
+  - 减轻某种痛苦，减轻，缓和，使镇定
+
+- =proliferate=
+  - to increase a lot and suddenly in number
+  - 激增、增殖，作者用来表达大量东西涌现，也就是激增的含义。
+#+begin_quote
+To =alleviate= the lack of in-path functionalities within the network, a *myriad* of specialized components and middleboxes, such as firewalls, intrusion detection systems, and deep packet inspection engines, =proliferate= in current networks.
+#+end_quote
+
+- =ubiquitous=
+  - seeming to be everywhere 
+  - 到处存在的
+  #+begin_quote
+abstractions are essential tools of research in computer science and information technology, being already an =ubiquitous= feature of many computer architectures and systems.
+  #+end_quote
 
 * Sentences
 - =更不用说=
