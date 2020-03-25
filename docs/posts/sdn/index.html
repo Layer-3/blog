@@ -8,7 +8,7 @@
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Mar 23, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
+    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Mar 25, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
 <hr>
 <h2 id="1-dot-为什么">1. 为什么</h2>
 <p>在介绍 SDN 之前，需要先说明为什么需要 SDN，也就是现在的网络架构有什么问题？</p>
@@ -33,13 +33,15 @@
         target="_blank"><img class="img" src="/ox-hugo/2020-03-23_22-02-16_screen-shoot.png" width="300"/></a></span>
 </span>
 <h3 id="2-dot-2-什么是-sdn">2.2 什么是 SDN</h3>
+<h4 id="2-dot-2-dot-1-基本构成">2.2.1 基本构成</h4>
 <p>文章认为 SDN 的架构由四大支柱构成：</p>
 <ol>
 <li>控制与数据层分离；</li>
 <li>转发决策是基于 flow 的，而不是基于目的地址的。flow 这个抽象使得不同类型的网络设备（比如路由器、交换机、防火墙等）可以统一行为，极大的增加了灵活性（但可能受到流表<code>功能</code>上的限制？）；</li>
-<li>控制逻辑被移动到外部实体，被称之为 SDN Controller 或者 NOS，可以基于此抽象对转发设备进行编程；</li>
+<li>控制逻辑被移动到外部实体，被称之为 SDN Controller 或者 NOS<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，可以基于此抽象对转发设备进行编程；</li>
 <li>网络可以通过运行在 NOS(其与数据层设备交互) 之上的软件程序来进行编程。</li>
 </ol>
+<h4 id="2-dot-2-dot-2-抽象的方法">2.2.2 抽象的方法</h4>
 <p>通过抽象的方法可以帮助我们更好地理解计算机科学中的很多事物，SDN 也不例外。SDN 可以被认为是由三大抽象构成的：</p>
 <ul>
 <li><code>Forwarding abstraction</code> ，可以类比于 OS 中的驱动，实现网络程序要求的各种转发行为；</li>
@@ -54,11 +56,34 @@
 <span class="image-container"><span class="link" ><a href="https://i.loli.net/2020/03/23/V6u9bo8CSU35TwD.png" 
         target="_blank"><img class="img" src="https://i.loli.net/2020/03/23/V6u9bo8CSU35TwD.png" width="400"/></a></span>
 </span>
+<h4 id="2-dot-2-dot-3-术语定义">2.2.3 术语定义</h4>
+<ol>
+<li><code>Forwarding Devices(FD)</code>，用来执行的一些基本操作的数据层设备，其拥有一些实现定义好的指令集（比如转发到和端口之类的），这些指令集实际上由南向接口 southbound interfaces 定义的，并由 SDN 控制器安装在转发设备中以实现南向协议；</li>
+<li><code>Data Plane(DP)</code>，网络中的转发设备的集合就是一个数据层，这里的集合表示这些设备是通过无线或有线连接着的；</li>
+<li><code>Southbound Interface(SI)</code>，主要用来表示控制层与数据层之间的交互；
+<ul>
+<li>FD 中的指令集就是由南向 API 定义的，南向 API 是 SI 的一部分；</li>
+<li>定义控制层与 SD 之间的通信协议。</li>
+</ul>
+</li>
+<li><code>Control Plane(CP)</code>，FD 是被 CP 通过 SI 实体来编程的，相当于是网络的大脑，所有的逻辑都在应用程序和控制器中，也就是在控制层中；</li>
+<li><code>Northbound Interface(NI)</code>，NOS 给 APP 开发者提供 API，这个 API 就是 NI，本质上，NI 通常对 SI 使用的底层的指令集进行抽象，来对 FD 进行编程；</li>
+<li><code>Management Plane(MP)</code>，利用 NI 提供的功能（函数）来实现网络控制和操作逻辑的应用程序集合，（包括路由、防火墙等等），管理程序定义策略，这些策略被最终翻译为南向的特定指令，来编程 FD 的行为。</li>
+</ol>
+<h2 id="3-dot-software-defined-networks">3. Software-defined Networks</h2>
+<h3 id="3-dot-1-infrastructure">3.1 Infrastructure</h3>
+<p>下图表示了基于OpenFlow的SDN设备的结构和逻辑
+<a target="_blank" rel="noopener noreferrer" 
+  href="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png"><img  src="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png"
+        alt/></a></p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
 <p>说逻辑上中心化，是因为物理上大多是分布式实现的，因为中心化的控制设备会带来很多问题，比如单点故障、性能扩展性不佳等。 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>一个运行在商品服务器技术上的软件平台，它基于逻辑上集中的抽象网络视图提供必要的资源和抽象，以促进转发设备的编程。 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

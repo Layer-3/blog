@@ -32,5 +32,15 @@
       
     </item>
     
+    <item>
+      <title>高级计算机网络学习笔记</title>
+      <link>/posts/ad_computer_network/</link>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/ad_computer_network/</guid>
+      <description>This is for Adcanced Computer Networks learn note Part I Datacnter Networks 1. FartTree 2. DCN-Portland 2.1 Abstract 2.2 Design 2.3 Implementation 2.4 Tips 与 FartTree 的连接方式不同，由于 FartTree 的连接方式是固定的，而 Portland 是没有固定的连接哪个交换机的哪个端口的要求</description>
+      
+    </item>
+    
   </channel>
 </rss>

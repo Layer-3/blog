@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.65.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.png" type="image/x-icon"><title>高级计算机网络学习笔记&nbsp;&ndash;&nbsp;Layer 7</title><link rel="stylesheet" href="/css/core.min.e716e8f9885bef0e2ee8fa449b9acd5476a0ada29ecad9db14598562cc1bf21fddd02f681b6832437b7b775832814fc0.css" integrity="sha384-5xbo&#43;Yhb7w4u6PpEm5rNVHagraKeytnbFFmFYswb8h/d0C9oG2gyQ3t7d1gygU/A"><body>
+    <div class="base-body"><section id="header" class="site header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">高级计算机网络学习笔记</h1><p class="article date">Mar 18, 2020<span class="lastmod"> • edited Mar 24, 2020</span></p></section><article class="article markdown-body"><p><em>This is for Adcanced Computer Networks learn note</em></p>
+<hr>
+<h2 id="part-i-datacnter-networks">Part I Datacnter Networks</h2>
+<h3 id="1-dot-farttree">1. FartTree</h3>
+<h3 id="2-dot-dcn-portland">2. DCN-Portland</h3>
+<h4 id="2-dot-1-abstract">2.1 Abstract</h4>
+<h4 id="2-dot-2-design">2.2 Design</h4>
+<h4 id="2-dot-3-implementation">2.3 Implementation</h4>
+<h4 id="2-dot-4-tips">2.4 Tips</h4>
+<ul>
+<li>与 FartTree 的连接方式不同，由于 FartTree 的连接方式是固定的，而 Portland 是没有固定的连接哪个交换机的哪个端口的要求的，同样的对编号也没有要求。</li>
+<li>为什么要让 edge 投票选 id，因为冉 Aggre switch 来分配的会可能会冲突；</li>
+<li>每个 switch 都会连接到 fabric manager，其作为 control plane 运行；</li>
+<li>为什么需要 PMAC，因为 FatTree 中的 ip 地址是分配给虚拟机的，如果虚拟机迁移了，就要重新分配 ip，而是 PMAC 就不用进行手动来管理；</li>
+</ul>
+<h3 id="3-dot-helios-混合的电光交换机-arch-for-modular-data-centers">3. Helios：混合的电光交换机 Arch for Modular Data Centers</h3>
+<h4 id="3-dot-1-介绍">3.1 介绍</h4>
+<p>什么是 Modular，指的就是数据中心的一个部分，里面是个完整的包含服务器、网络散热器等均已配置的很完善的一个模块数据中心。其实就是将数据中心模块化，将各个小的模块组织在一起就是一个大的数据中心。研究的重点就是怎么为 modular 之间实现好的通信。想法就是将带宽变成资源池，按需进行分配，节省成本。</p>
+<h4 id="3-dot-2-ciuruit-switch">3.2 Ciuruit Switch</h4>
+<p>ppt 里的 circuit switch 和 optical switch 是一个意思。</p>
+<p>作为第 0 层交换：物理层的交换，把 a 端口进来的光通过镜子反射到 b 端口出去。</p>
+<p>波分复用：把多个光信号(比如红,黄,蓝色光)调制在一起传输，再通过解调器输出为多个光信号</p>
+<h4 id="3-dot-3-simulation">3.3 Simulation</h4>
+<p>p：有 p 个端口连到交换机，c：有 c 个端口连接到光交换机；</p>
+<p>M：所有的 pods 加一起共有 M 个端口连光交换机。</p>
+<h4 id="3-dot-4-prototype">3.4 Prototype:</h4>
+<p>把一些物理交换机利用 vlan 虚拟出来多个虚拟交换机用于 pods。一台物理交换机用作核心交换机，每个 pods 有一个端口连接到以太网交换机</p>
+<p>每个光交换机连接到 pod 中的一个端口。</p>
+<p>LAG:为指向某一个 pod 的物理<strong>光路</strong>端口指定一个为集合形成逻辑端口。如果 LAG 里的端口为 0 的话，就说明指向这个 pod 的数据应该走 packet switch。</p>
+<p>通过现有的 traffic Matrix 估计出 Demand Matrix。</p>
+<p>在 Demand Matrix 中，因为光交换的特点，每一行、每一列只能满足一个。</p>
+<p><span class="underline">当 w=4 时，即使有个 demand 是 7，但是仍然只能传 4，所以在点亮格子的计算时需要注意。</span></p>
+<h4 id="3-dot-5-总结">3.5 总结</h4>
+<p>Blocking Switch:打通一条路的代价是堵塞所有其他路，光交换机就是，而包交换机不是。</p>
+<p>从 FatTree 开始，其只是一个拓扑结构，没有迁移、容错等问题，到了 Portland 其在资源增多时，需要大量的交换机。通过引入光交换机，Portland 中的大量交换机是为了应对最坏情况，这里通过观察的传输情况，对传输进行按需分配。</p>
+<h3 id="project-i">Project I</h3>
+<p>beacon:ap 往外面发送的关于自身的 ssid 等信息的包；</p>
+<h2 id="part-ii-protocols">Part II Protocols</h2>
+<h3 id="1-dot-mptcp">1. MPTCP</h3>
+<h4 id="1-dot-1-背景">1.1 背景</h4>
+<p>现在是一个路径上连接，希望能建立多条路径，能够和 TCP 公平竞争，应用程序兼容性。</p>
+<p>在 TCP Option 字段定义 MP……指定使用 MPTCP。</p>
+<p>huawei: Turbo Link</p>
+<h4 id="1-dot-2-congestion-control">1.2 Congestion Control</h4>
+<p><code>有拥塞就退让，有空闲就争取</code>。</p>
+<p>TCP 使用的 AMID，慢启动，快撤退；</p>
+<p>对 MPTCP，算法的公示比较复杂，建议查看 ppt。收到 ACK 后，把<code>一些子流</code> 的窗口增大，但是如果丢包，则只把<code>该子流</code>的窗口减半。</p>
+<p>对于 Coupled，不能把其他路径减到 0.至少要留一个 probe，就涨是全局的，但是跌只和自己相关。考虑 RTT 进行泛化之后得到了现在用的算法。</p>
+</article><section class="article labels"><a class="category" href=/categories/learn/>Learn</a><a class="tag" href=/tags/network/>Network</a></section></div><section class="article navigation"><p><a class="link" href="/posts/flexible-distributed-optimization-fram/"><span class="li">&larr;</span>与主机上其他任务共享资源的分布式优化框架</a></p></section><section class="article discussion"><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ansont-cn" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></section></div><section id="footer" class="footer"><div class="footer-wrap">
+    <p class="copyright">©2020 TW.</p>
+    <p class="powerby"><span>Powered by </span><a href="https://gohugo.io" 
+        target="_blank">Hugo</a><span> and the </span><a href="https://themes.gohugo.io/hugo-notepadium/" 
+        target="_blank">Notepadium</a></p>
+</div></section><script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-e/4/LvThKH1gwzXhdbY2AsjR3rm7LHWyhIG5C0jiRfn8AN2eTN5ILeztWw0H9jmN" crossorigin="anonymous"></script>
+        <script
+            type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-161408542-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</div>
+</body>
+
+</html>
