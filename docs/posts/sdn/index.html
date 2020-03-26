@@ -4,11 +4,11 @@
 <meta name="supported-color-schemes" content="light dark">
 
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
-<link rel="shortcut icon" href="/favicon.png" type="image/x-icon"><title>软件定义网络&nbsp;&ndash;&nbsp;Layer 7</title><link rel="stylesheet" href="/css/core.min.e716e8f9885bef0e2ee8fa449b9acd5476a0ada29ecad9db14598562cc1bf21fddd02f681b6832437b7b775832814fc0.css" integrity="sha384-5xbo&#43;Yhb7w4u6PpEm5rNVHagraKeytnbFFmFYswb8h/d0C9oG2gyQ3t7d1gygU/A"><body>
+<link rel="shortcut icon" href="/favicon.png" type="image/x-icon"><title>软件定义网络&nbsp;&ndash;&nbsp;Layer 7</title><link rel="stylesheet" href="/css/core.min.13b7b2b0d13bb838fbc41a20885a38553de7e0fbe92f6c06ab1422828ff749227cb9f9974d563cb370caaa928d3b03c9.css" integrity="sha384-E7eysNE7uDj7xBogiFo4VT3n4PvpL2wGqxQigo/3SSJ8ufmXTVY8s3DKqpKNOwPJ"><body>
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Mar 25, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
+    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Mar 26, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
 <hr>
 <h2 id="1-dot-为什么">1. 为什么</h2>
 <p>在介绍 SDN 之前，需要先说明为什么需要 SDN，也就是现在的网络架构有什么问题？</p>
@@ -72,10 +72,34 @@
 </ol>
 <h2 id="3-dot-software-defined-networks">3. Software-defined Networks</h2>
 <h3 id="3-dot-1-infrastructure">3.1 Infrastructure</h3>
-<p>下图表示了基于OpenFlow的SDN设备的结构和逻辑
+<p>下图表示了基于 OpenFlow 的 SDN 设备的结构和逻辑
 <a target="_blank" rel="noopener noreferrer" 
   href="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png"><img  src="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png"
         alt/></a></p>
+<p>Infrastructure 主要介绍的是那时支持 SDN 设备的基本构成，基本在上图可以看到，不过值得注意的是这样一个事实：</p>
+<blockquote>
+<p>软件实现的交换机是一个实现数据中心网络和网络虚拟化的很有前景的想法。e.g. Switch light, ofsoftswitch, Open vSwitch, Pica8, Pantou, XorPlus。</p>
+</blockquote>
+<p>我觉的这是一个值得研究的点，如果目前还是一个“很有前景的“而不是非常完善的领域的话。</p>
+<h3 id="3-dot-2-southbound-interfaces">3.2 Southbound Interfaces</h3>
+<p>或者叫<code>Southbound APIs</code>，作为连接 FD 和 Control 的桥梁，非常重要。与 OpenFlow 提出时想要解决的问题一样，这些 API 目前还是和 FD 的底层物理实现或虚拟设施等紧相关。传统的设备各个厂商之间的实现方法不同，API 不通用，使用诸如 OpenFlow 这样的南向 API 可以为不同厂商生产的 OpenFlow-enabled 的设备带来互操作性(interoperability)。作为数据和控制层之间的通信笑到，OpenFlow 协议为 NOS 提供三种信息通道：</p>
+<ul>
+<li>当链路或端口变化被发现时，FD 给 controller 发送的基于<code>事件</code>的 message；</li>
+<li>FD 生成的<code>统计数据</code>发送给 Controller 以收集统计；</li>
+<li>当转发设备不知道如何处理<code>新</code> 的传入流时，或者由于流表的匹配条目中有明确的“<code>发送到控制器</code>”操作，packet-in messages 将由转发设备发送到控制器。</li>
+</ul>
+<p><code>这些信息通道是给NOS提供*流级别*信息的基本手段</code></p>
+<p>下面概述在南向 API 方面的探索。本质上是为转发设备提供一种可编程的接口，一些探索是为了给 OpenFlow 纠偏，另一些则是根本上的新思路。</p>
+<ul>
+<li><code>ForCES</code>，将控制和数据分离，但是仍然在一个网络设备中；</li>
+<li><code>OVSDB</code>，相当于 OpenFlow 的补充协议，可以提供更多功能（诸如 QoS 策略，控制 OpenFlow 数据路径的信道接口等）；</li>
+<li><code>POF</code>，为了加强 SDN 的转发层。在 OpenFlow 里面，转发设备必须对头部进行解析来找到与流表条目匹配的数据位，这意味着数据层设备需要为此花费严重，同时 OpenFlow 的更新换代，对头部的解析就更困难了。为此 POF 提出了一种 generic flow instruction set(FIS)，是的转发设备像是一个只有处理和转发能力的白盒，<code>包解析任务由控制器来完成</code>，返回给转发设备一系列 Keys 和查表指令（安装在转发设备中的）；</li>
+<li><code>OpFlex</code>，把一部分网络管理功能<code>返还给转发设备</code>，这体现了 SDN 中的一个问题：就在什么地方放置哪些功能？</li>
+<li><code>OpenState</code>，用<code>有限状态机</code>来让转发设备执行几个有状态任务，而<strong>不会增加控制平面的复杂性或开销</strong>，这使的所有只涉及本地状态的任务（比如 MAC 地址学习操作）可以直接在转发设备中执行，而不用和三控制器通信；</li>
+<li><code>ROFL</code>，其直接提供了一种抽象层，隐藏各种版本的 OpenFlow 协议的区别；</li>
+<li><code>HAL</code>，其准确来说不算是南向 API，它更像是属于转发设备和南向 API 直接的那一层，作为一个<strong>翻译器</strong>将诸如 OpenFlow 这样的南向 API 翻译后来控制硬件设备；</li>
+<li><code>PAD</code>，通过使用通用字节操作、定义协议头和提供功能定义来控制数据路径行为，从而对转发设备进行更通用的编程。</li>
+</ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>

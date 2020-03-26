@@ -2,7 +2,7 @@
 title = "软件定义网络"
 author = ["tang"]
 date = 2020-03-22
-lastmod = 2020-03-25T21:08:28+08:00
+lastmod = 2020-03-26T20:01:20+08:00
 tags = ["SDN", "Network"]
 categories = ["Study"]
 draft = false
@@ -83,8 +83,36 @@ SDN 为改变上面的问题，做了哪些工作呢？
 
 ### 3.1 Infrastructure {#3-dot-1-infrastructure}
 
-下图表示了基于OpenFlow的SDN设备的结构和逻辑
+下图表示了基于 OpenFlow 的 SDN 设备的结构和逻辑
 ![](https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png)
+
+Infrastructure 主要介绍的是那时支持 SDN 设备的基本构成，基本在上图可以看到，不过值得注意的是这样一个事实：
+
+> 软件实现的交换机是一个实现数据中心网络和网络虚拟化的很有前景的想法。e.g. Switch light, ofsoftswitch, Open vSwitch, Pica8, Pantou, XorPlus。
+
+我觉的这是一个值得研究的点，如果目前还是一个“很有前景的“而不是非常完善的领域的话。
+
+
+### 3.2 Southbound Interfaces {#3-dot-2-southbound-interfaces}
+
+或者叫`Southbound APIs`，作为连接 FD 和 Control 的桥梁，非常重要。与 OpenFlow 提出时想要解决的问题一样，这些 API 目前还是和 FD 的底层物理实现或虚拟设施等紧相关。传统的设备各个厂商之间的实现方法不同，API 不通用，使用诸如 OpenFlow 这样的南向 API 可以为不同厂商生产的 OpenFlow-enabled 的设备带来互操作性(interoperability)。作为数据和控制层之间的通信笑到，OpenFlow 协议为 NOS 提供三种信息通道：
+
+-   当链路或端口变化被发现时，FD 给 controller 发送的基于`事件`的 message；
+-   FD 生成的`统计数据`发送给 Controller 以收集统计；
+-   当转发设备不知道如何处理`新` 的传入流时，或者由于流表的匹配条目中有明确的“`发送到控制器`”操作，packet-in messages 将由转发设备发送到控制器。
+
+`这些信息通道是给NOS提供*流级别*信息的基本手段`
+
+下面概述在南向 API 方面的探索。本质上是为转发设备提供一种可编程的接口，一些探索是为了给 OpenFlow 纠偏，另一些则是根本上的新思路。
+
+-   `ForCES`，将控制和数据分离，但是仍然在一个网络设备中；
+-   `OVSDB`，相当于 OpenFlow 的补充协议，可以提供更多功能（诸如 QoS 策略，控制 OpenFlow 数据路径的信道接口等）；
+-   `POF`，为了加强 SDN 的转发层。在 OpenFlow 里面，转发设备必须对头部进行解析来找到与流表条目匹配的数据位，这意味着数据层设备需要为此花费严重，同时 OpenFlow 的更新换代，对头部的解析就更困难了。为此 POF 提出了一种 generic flow instruction set(FIS)，是的转发设备像是一个只有处理和转发能力的白盒，`包解析任务由控制器来完成`，返回给转发设备一系列 Keys 和查表指令（安装在转发设备中的）；
+-   `OpFlex`，把一部分网络管理功能`返还给转发设备`，这体现了 SDN 中的一个问题：就在什么地方放置哪些功能？
+-   `OpenState`，用`有限状态机`来让转发设备执行几个有状态任务，而**不会增加控制平面的复杂性或开销**，这使的所有只涉及本地状态的任务（比如 MAC 地址学习操作）可以直接在转发设备中执行，而不用和三控制器通信；
+-   `ROFL`，其直接提供了一种抽象层，隐藏各种版本的 OpenFlow 协议的区别；
+-   `HAL`，其准确来说不算是南向 API，它更像是属于转发设备和南向 API 直接的那一层，作为一个**翻译器**将诸如 OpenFlow 这样的南向 API 翻译后来控制硬件设备；
+-   `PAD`，通过使用通用字节操作、定义协议头和提供功能定义来控制数据路径行为，从而对转发设备进行更通用的编程。
 
 [^fn:1]: 说逻辑上中心化，是因为物理上大多是分布式实现的，因为中心化的控制设备会带来很多问题，比如单点故障、性能扩展性不佳等。
 [^fn:2]: 一个运行在商品服务器技术上的软件平台，它基于逻辑上集中的抽象网络视图提供必要的资源和抽象，以促进转发设备的编程。
