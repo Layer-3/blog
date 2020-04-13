@@ -7,9 +7,32 @@
 #+HUGO_DRAFT: false
 
 * Words
+- =mitigate=
+  - 减轻
+#+begin_quote
+One of the important goals of data center networks is to avoid or =mitigate= the effect of network bottlenecks on the operation of the computing services offered
+#+end_quote
+- =diversified=
+  - 多变化的，各种的
+#+begin_quote
+By using specialized optimization algorithms and =diversified= configuration options.
+#+end_quote
+- =seamless=
+  - smoothly and continuously, with no apparent gaps or spaces between one part and the next
+  - 无缝衔接的，平滑的
+#+begin_quote
+the load balancing service can take the appropriate actions to =seamlessly= distribute the traffic among the available servers.
+#+end_quote
+- =paramount=
+  - more important than anything else;
+  - 至关重要的
+#+begin_quote
+Another aspect of =paramount= importance is the portability of the programming language.
+#+end_quote
+
 - =Amenable= : 
- - willing to accept or be influenced by a suggestion;
- - 意为顺从的，愿意接受建议的，耳朵软的之类的意思。在 OpenFlow 一文中，作者将 Amenable 放在句首，来表达需要实现的功能。
+  - willing to accept or be influenced by a suggestion;
+  - 意为顺从的，愿意接受建议的，耳朵软的之类的意思。在 OpenFlow 一文中，作者将 Amenable 放在句首，来表达需要实现的功能。
 #+begin_quote
 =Amenable= to high-performance and low-cost implementations.
 #+end_quote
@@ -50,11 +73,30 @@ To =alleviate= the lack of in-path functionalities within the network, a *myriad
 - =ubiquitous=
   - seeming to be everywhere 
   - 到处存在的
-  #+begin_quote
-abstractions are essential tools of research in computer science and information technology, being already an =ubiquitous= feature of many computer architectures and systems.
-  #+end_quote
+    #+begin_quote
+  abstractions are essential tools of research in computer science and information technology, being already an =ubiquitous= feature of many computer architectures and systems.
+    #+end_quote
+
+- =anchor=
+  - to lower an anchor into the water in order to stop a boat from moving away;
+  - to make something or someone stay in one position by fastening him, her, or it firmly;
+  - 锚状物、固定、支撑，赖以支撑的人、物。作者用来表达一个技术依赖于一些东西（这些东西可以避免）
+#+begin_quote
+However, these technologies are anchored on a box-by-box basis configuration.
+#+end_quote
+
+- =analogy= 
+  - 相似，类似，类比
+  - 翻译说是举例来说，我感觉说是类比来看也可以：
+#+begin_quote
+The base network service functions are what we consider the essential functionality all controllers should provide. =As an analogy=, these functions are like base services of operating systems, such as program execution, input/output (I/O) operations control, communications, protection, and so on.
+#+end_quote
 
 * Sentences
+- =同时=
+#+begin_quote
+for instance, allowing the distribution and directing of large groups of client requests without requiring controller intervention for every new flow. =In tandem=, operation in reactive mode may still be used when traffic bursts are detected.
+#+end_quote
 - =更不用说=
 #+begin_quote
 Commercial switches and routers =do not= typically provide an open software platform, =let alone= provide a means to virtualize either their hardware or software.
@@ -64,3 +106,23 @@ Commercial switches and routers =do not= typically provide an open software plat
 #+begin_quote
 =This approach is promising in the long-term=, but for the time being is targeted at large switching centers and is too expensive for widespread deployment in college wiring closets.
 #+end_quote
+
+- =来满足=
+#+begin_quote
+Programming languages can also provide specialized abstractions =to cope with= other management requirements, such as monitoring.
+#+end_quote
+
+
+* Professional Expression
+- =fine-grained <==> coarser grained= 细粒度，粗粒度；
+- =race-free= 非竞争的；
+- =single point of failure=  单点故障；
+- =heterogeneity= 异质性；
+- =Wrapping Up Remarks= 总结，结束语；
+- =introduce= 引入，提出。 
+
+* Good Sentences 
+#+begin_quote
+The controller application *needs* to monitor the network traffic *and* use some sort of threshold *in* the flow counters *to* redistribute clients *among* the servers *when* bottlenecks are likely to happen.
+#+end_quote
+

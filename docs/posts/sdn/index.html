@@ -8,7 +8,7 @@
     <div class="base-body"><section id="header" class="site header">
     <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><img class="site logo" src="/favicon.png" alt /><span class="site name">Layer 7</span></a></span>
         <span class="header right-side"><div class="nav wrap"><nav class="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">Thanks for layer 3</span></div></section><div id="content"><div class="article-container"><section class="article header">
-    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Mar 26, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
+    <h1 class="article title">软件定义网络</h1><p class="article date">Mar 22, 2020<span class="lastmod"> • edited Apr 13, 2020</span></p></section><article class="article markdown-body"><p><em>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进去，进行查缺补漏式的系统学习，以开展相应的研究和实验。目前第一步已经看完了 OpenFlow 的开山之作，具体可以看这篇<a href="https://www.ansont.cn/posts/openflow"target="_blank">博文</a>，这篇博文主要是阅读 SDN 的一篇综述“Softwoare-Defined Networking: A Comprehensive Survey”的学习总结</em></p>
 <hr>
 <h2 id="1-dot-为什么">1. 为什么</h2>
 <p>在介绍 SDN 之前，需要先说明为什么需要 SDN，也就是现在的网络架构有什么问题？</p>
@@ -71,7 +71,7 @@
 <li><code>Management Plane(MP)</code>，利用 NI 提供的功能（函数）来实现网络控制和操作逻辑的应用程序集合，（包括路由、防火墙等等），管理程序定义策略，这些策略被最终翻译为南向的特定指令，来编程 FD 的行为。</li>
 </ol>
 <h2 id="3-dot-software-defined-networks">3. Software-defined Networks</h2>
-<h3 id="3-dot-1-infrastructure">3.1 Infrastructure</h3>
+<h3 id="3-dot-1-layer-i-infrastructure">3.1 Layer I: Infrastructure</h3>
 <p>下图表示了基于 OpenFlow 的 SDN 设备的结构和逻辑
 <a target="_blank" rel="noopener noreferrer" 
   href="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png"><img  src="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot%204.png"
@@ -81,7 +81,7 @@
 <p>软件实现的交换机是一个实现数据中心网络和网络虚拟化的很有前景的想法。e.g. Switch light, ofsoftswitch, Open vSwitch, Pica8, Pantou, XorPlus。</p>
 </blockquote>
 <p>我觉的这是一个值得研究的点，如果目前还是一个“很有前景的“而不是非常完善的领域的话。</p>
-<h3 id="3-dot-2-southbound-interfaces">3.2 Southbound Interfaces</h3>
+<h3 id="3-dot-2-layer-ii-southbound-interfaces">3.2 Layer II: Southbound Interfaces</h3>
 <p>或者叫<code>Southbound APIs</code>，作为连接 FD 和 Control 的桥梁，非常重要。与 OpenFlow 提出时想要解决的问题一样，这些 API 目前还是和 FD 的底层物理实现或虚拟设施等紧相关。传统的设备各个厂商之间的实现方法不同，API 不通用，使用诸如 OpenFlow 这样的南向 API 可以为不同厂商生产的 OpenFlow-enabled 的设备带来互操作性(interoperability)。作为数据和控制层之间的通信笑到，OpenFlow 协议为 NOS 提供三种信息通道：</p>
 <ul>
 <li>当链路或端口变化被发现时，FD 给 controller 发送的基于<code>事件</code>的 message；</li>
@@ -100,6 +100,156 @@
 <li><code>HAL</code>，其准确来说不算是南向 API，它更像是属于转发设备和南向 API 直接的那一层，作为一个<strong>翻译器</strong>将诸如 OpenFlow 这样的南向 API 翻译后来控制硬件设备；</li>
 <li><code>PAD</code>，通过使用通用字节操作、定义协议头和提供功能定义来控制数据路径行为，从而对转发设备进行更通用的编程。</li>
 </ul>
+<h3 id="3-dot-3-layer-iii-network-hypervisors">3.3 Layer III: Network Hypervisors</h3>
+<p>现在虚拟机化技术应用的很广泛，特别是虚拟机迁移，非常灵活且易于管理，但是目前的网络还需要一个设备一个设备的配置。网络需求可以被分为两大类：<strong>network topology</strong>和<strong>address space</strong>。而这两个在目前的架构中都很难虚拟化，不可能找到一个拓扑能够适用于所有任务，而现在地址空间也是很难改变，虚拟化工作负载必须在物理基础架构的相同地址中运行。所以要实现完全的虚拟化，就要实现网络虚拟化，要实现网络虚拟化就要做到可以支持任意网络拓扑结构和地址模式，同时系统迁移也应该可以自动引虚拟起网络端口的迁移。目前已有的虚拟化方案类似于 VLANS, NAT 和 MPLS 这样的虚拟化够了，但是还是需要一个一个的配置。作者将现有的研究分为网络切片和商业多租户网络管理工具两部分。</p>
+<p><strong>1) Slicing the Network</strong></p>
+<ul>
+<li><code>FlowVisor</code>，让多种逻辑网络分享相同的 OpenFlow 基础结构，提供一个抽象层让对数据平面可以容易进行切片。主要考虑了这样几个纬度：<strong>带宽，拓扑，traffic，CPU 核心和转发表</strong>，并且每个网络切片支撑一个控制器，也就是说多控制器可以在同样的物理网络基础设施上共存，每个控制器只能管理自己的网络切片。从系统设计的角度来看，FlowVisor 是一个传输代理，劫持交换机和控制器的 OpenFlow 消息。它划分每个交换机的链路带宽、流表和每个分片接收最小数据速率，每个控制器在交换机中获得自己的虚拟流表。</li>
+<li><code>OpenVirtex</code>，其像是一个在转发设备和 NOS 之间的代理，其主要目标是要通过虚拟化<strong>拓扑、地址和控制函数</strong>来提供虚拟 SDNs。虚拟网络拓扑必须映射到基础转发设备上，虚拟地址允许租户完全管理其地址空间，而无需依赖基础网络元素寻址方案。</li>
+<li><code>AutoSlice</code>，重点关注虚拟 SDN（vSDN）拓扑的部署和操作的<strong>自动化</strong>，使得底层网络运营商进行的调解或仲裁最少。通过优化资源利用率并通过<strong>对流量统计进行精确监</strong>控来减轻流表限制，可以实现网络管理程序的可扩展性方面。</li>
+<li><code>AutoVFlow</code>，提供多域的网络虚拟化，不是单一的第三方来控制和映射网络拓扑，而使用多代理结构，让网络拥有者通过以在不同域上交换信息的方法自动化实现流空间虚拟化。</li>
+<li><code>FlowN</code>，FlowN 与上面的虚拟化不同，上面的虚拟化可以类比于完全虚拟化，那么 FlowN 就可以类比于容器(Container<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>)虚拟化，FlowN 最初还主要用于在云平台的环境下解决多租户问题，它被设计为可伸缩的，并允许使用独特的共享控制器平台来管理云环境中的多个域，每个租户都可以完全控制其虚拟网络，并可以在控制器平台之上自由部署任何网络抽象和应用程序。</li>
+<li><code>compositional SDN hypervisor</code>，主要目标是：允许协作多个用不用语音编写的程序能够（顺序、并行）执行，或者设计用于各种控制平台，因此为典型网络管理程序提供了 interoperability 和 portability。</li>
+</ul>
+<p><strong>2） 商业多租户网络管理程序</strong>，主要是要能提供底层转发设备和物理网络拓扑的抽象，并且每个租户可以控制自己的抽象和独立管理自己的虚拟网络（意味着不用和其他租户打交道）</p>
+<ul>
+<li><code>NVP</code>，由 VMWare 提出，主要提供了必要的抽象，来允许在多租户环境下创建独立的虚拟网络。在同一个物理网络上包含独立的服务模型、拓扑和地址结构。NVP 网络管理程序把用户的配置和需求翻译成底层指令，安装在转发设备上。该平台使用 SDN 控制器<strong>集群</strong>来操纵主机管理程序中 Open vSwitch 的转发表。因此，转发决策仅在<strong>网络边缘</strong>上做出。做出决定后，数据包将通过物理网络通过隧道传输到接收主机管理程序（物理网络只能看到普通 IP 数据包）。</li>
+<li><code>SDN VE</code>，由 IBM 提出，使用 OpenDaylight 作为被称为 SDE 的一个构建块，于 NVP 类似，其实用了基于主机的覆盖 approach，为多租户应用层网络抽象服务。</li>
+</ul>
+<h3 id="3-dot-4-layer-iv-network-operating-system-controllers">3.4 Layer IV: Network Operating System/Controllers</h3>
+<p>为什么需要网络操作系统？操作系统的作用就是对底层的异质的硬件等资源进行抽象，方便上层应用进行开发，在网络上也是一样的，路由算法的设计者在解决网络问题时往往需要处理复杂的分布式算法，并且这些问题要一直被重复处理。SDN 为解决这样的问题提出 NOS 来实现逻辑集中的控制，主要包括抽象、必要服务和开发者需要的共同的 API。可以将诸如<strong>网络状态</strong>和<strong>网络拓扑信息</strong>，<strong>设备发现</strong>以及<strong>网络配置的分布</strong>之类的通用功能作为 NOS 的服务来提供。这样网络策略开发者就不用管底层的实现细节了。</p>
+<h4 id="3-dot-4-dot-1-系统设计维度">3.4.1 系统设计维度</h4>
+<p>分为<strong>集中式</strong>和<strong>分布式</strong>。</p>
+<h4 id="3-dot-4-dot-2-集中式与分布式">3.4.2 集中式与分布式</h4>
+<p>集中式的控制器就是用一个实体来管理网络上的所有转发设备，（具有<strong>单点故障</strong>、<strong>拓展性很差</strong>的问题），一些 NOS 采用了高实时性系统来实现高吞吐量，大多基于多线程设计来利用多核并行执行的机制。值得注意的是，有个<strong>micro-NOS 采用基于<code>容器</code>的架构，实现了隔离应用程序并防止故障在整个 SDN 堆栈中传播的主要目标。</strong></p>
+<p>分布式的控制器就比较有弹性，（大网络、小网络都能处理）。分布式的控制器可以是一个<strong>集中式的节点集群</strong>或<strong>物理上分布式的集合</strong>。前者可以实现高吞吐量，后者弹性和容错比较好，对于大型数据中心可以在数据中心内部使用集中式节点集群，而连接地理上分布的数据中心之间采用分布式的集合。</p>
+<p>分布式控制器有些使用的是弱一致性语义，也就是说数据的更新不是同步的，在同一时刻不同节点读取同一个变量的值可能不同(new and old)，使用强一致性模型保证读到的是一样的值，更方便应用开发，但是会影响系统性能。</p>
+<p>到目前（2005）为止，尽管某些控制器可以容忍崩溃故障，但它们不能容忍任意(arbitrary)故障，这意味着任何行为异常的节点都不会被行为良好的节点所替代。</p>
+<p>但是<strong>SDN 的整体弹性是一个开放的挑战</strong>。</p>
+<h4 id="3-dot-4-dot-3-解析-sdn-控制平面">3.4.3 解析 SDN 控制平面</h4>
+<p>多个 NOS 的比较：
+<a target="_blank" rel="noopener noreferrer" 
+  href="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot.png"><img  src="https://gitee.com/layer3/pic/raw/master/uPic/screen-shoot.png"
+        alt/></a>
+对上面几个平台的解剖，得到了如下清晰的 SDN 结构：
+<a target="_blank" rel="noopener noreferrer" 
+  href="https://gitee.com/layer3/pic/raw/master/uPic/20200402162606-9Tr84b.png"><img  src="https://gitee.com/layer3/pic/raw/master/uPic/20200402162606-9Tr84b.png"
+        alt/></a></p>
+<p>在已有的控制平面中，一般都至少有如下三个 well-defined layers:</p>
+<ul>
+<li>the application, orchestration<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>, services;</li>
+<li>核心控制器函数；</li>
+<li>南向通信的元素。</li>
+</ul>
+<p>控制平面较高的部分的连接是基于北向接口，例如 REST API 和 FML，Frenetic 和 NetCore，等语言；在控制平台的较低部分，是南向 API 和协议插件与转发元素接口。控制器平台的核心可以描述为其基础网络服务功能和各种接口的组合。</p>
+<h4 id="3-dot-4-dot-4-核心控制器函数">3.4.4 核心控制器函数</h4>
+<p>举例有：拓扑、分析数据、通知、设备管理、最短路径转发和安全机制。</p>
+<h4 id="3-dot-4-dot-5-南向">3.4.5 南向</h4>
+<p>类似于设备驱动，为上层提供通用接口，是的控制平面可以使用不同的南向 API（OpenFlow、OVSDB、ForCES）和协议插件来管理现有的或新的物理或虚拟设备，这对于<strong>向后兼容性</strong>和<strong>异构性</strong>都是至关重要的。一些控制器支持 OpenFlow 作为南向 API，但是 OpenDaylight 支持很多种，并且通过提供服务层抽象（Service Layer Abstract）更进一步，使得允许多个南向 API 和协议在控制平台中共存。</p>
+<h4 id="3-dot-4-dot-6-东向和西向">3.4.6 东向和西向</h4>
+<p><a target="_blank" rel="noopener noreferrer" 
+  href="https://gitee.com/layer3/pic/raw/master/uPic/20200402204339-screen-shoot.png"><img  src="https://gitee.com/layer3/pic/raw/master/uPic/20200402204339-screen-shoot.png"
+        alt/></a>
+分布式控制器在当前每个控制器都实现其自己的东/西向 API，这些接口的功能包括控制器之间的<strong>导入、导出数据</strong>，<strong>数据一致性模型的算法</strong>以及<strong>监视、通知功能</strong>（例如，检查控制器是否启动或通知一组转发设备的接管）。</p>
+<p>实现东西向接口主要是定义通用要求以协调流设置并跨多个域交换可达性信息；Onix 数据导入/导出功能,ForCES Intra-NE Coldstandby 机制以实现高可用性和分布式数据存储,高级数据分发机制，例如高级消息队列协议（AMQP），分布式并发和一致策略组合的技术，事务数据库和 DHT 或具有强大一致性和容错性的高级算法；</p>
+<p>在多域设置中，东、西的 API 可能还需要 SDN 域控制器之间的更具体的通信协议此类协议的某些基本功能包括协调由应用程序发起的流设置，交换可达性信息以促进 SDN 之间的路由，可达性更新以保持网络状态一致等。同时还需要考虑异质性（heterogeneity）的问题，比如可能需要和非 SDN 兼容的交换机通信，控制器之间必须交换不同的信息，包括<strong>邻接关系</strong>和<strong>功能发现</strong>，<strong>拓扑信息</strong>（在管理域之间达成一致的协议范围内），<strong>计费信息</strong>，</p>
+<p>有人给东西向做了区分：西向作为 SDN 到 SDN 协议和控制器 API，而东向接口将用于指代用于与旧版网络控制平面进行通信的标准协议</p>
+<h4 id="3-dot-4-dot-7-北向">3.4.7 北向</h4>
+<p>当前的控制器提供了种类繁多的北向 API，例如 ad hoc API，RESTful API，多层编程接口，文件系统，以及其他更专业的 API，例如 NVP NBAPI 和 SDMN API 第 IV-E 节专门讨论北向 API 不断发展的层。第二种北向接口是源自 SDN 编程语言的接口，例如 Frenetic ，Nettle ，NetCore ，Procera ，Pyretic ，NetKAT 和其他查询基础语言。</p>
+<h4 id="3-dot-4-dot-8-总结">3.4.8 总结</h4>
+<p>可以看出，大多数控制器都是集中式和多线程的。奇怪的是，北向 API 非常多样化。特别是，五个控制器（Onix，Floodlight，MuL，Meridian, SDN Unified Controller）对此接口的重视程度更高，以说明其重要性。一致性模型和容错功能仅出现在 Onix，HyperFlow，HP VAN SDN，ONOS 和 SMaRtLight 中。 最后，以 OpenFlow 标准作为南向 API 时，只有 Ryu 支持其三个主要版本（v1.0，v1.2 和 v1.3）。</p>
+<p>控制平台是 SDN 成功的关键点之一 ，在这方面需要解决的主要问题之一是互操作性。因为这是南向 API（例如 OpenFlow）试图解决的第一个问题。 例如，虽然 WiFi 和 LTE 网络需要专用的控制平台，例如 MobileFlow 或 SoftRAN ，但数据中心网络具有可以通过 Onix 等平台满足的不同要求,或 OpenDaylight。 因此，在网络多样化、基础设施是 reality，不同控制器之间的协调与合作至关重要环境中，用于多控制器和多域部署的标准化 API 被视为实现此目标的重要步骤。</p>
+<h3 id="3-dot-5-layer-v-northbound-interfaces">3.5 Layer V: Northbound Interfaces</h3>
+<p>目前南向接口基本上用的都是 OpenFlow，但是北向接口目前还挺丰富多样的，现有的控制器如 Floodlight、NOX、OpenDaylight 之类都定义了自己的北向接口，主要是因为使用场景还在不断进化，所以定义一个标准的北向接口还为时过早。与南向接口一样，都是软件实现的。北向接口的作用更像是操作系统中的 POSIX 标准，用来提高 App 的可移植性和互操作性。</p>
+<p>最早的相关的工作比如 NOSIX，其尝试定一个可移植的 low-level（如流模型）应用接口，让南向 API 看起来像是设备驱动，但这个工作更像是对南向接口的高级抽象，而不能说是北向接口。后面的工作诸如 SDNet 将应用需求翻译成对底层服务的 request，yanc 基于 linux 和 VFS 这样的抽象，使得 SDN Apps 像使用文件一样来和底层设备通信。PANE 控制器允许网络管理员定义特定于模块的配额和对网络资源的访问控制策略。该控制器提供了一个 API，该 API 允许终端主机应用程序动态且自主地请求网络资源。</p>
+<p>北向接口百花齐放，功能边界实际上还不是很清晰，ONF 结构工作包含了这样一种可能性，让北向 API 提供资源，最终从不同的业务和组织边界对客户应用程序进行网络资源的<strong>动态</strong>和<strong>粒度控制</strong>的可能性。</p>
+<h3 id="3-dot-6-layer-vi-language-based-virtualization">3.6 Layer VI: Language-Based Virtualization</h3>
+<p>虚拟化解决方案的两个基本特征是<strong>表达模块化</strong>的能力以及<strong>允许不同级别的抽象，同时仍保证所需属性</strong>的能力。举例来说，一个<strong>大交换机</strong>这样的抽象可以表示多个底层转发设备的联合。</p>
+<p>Pyretic 通过引入网络对象提供了网络拓扑的高层抽象，这些对象包括网络拓扑和可以在对象上应用的一系列策略的集合。Splendid 采用的是静态分割来实现的抽象，网络由编译器根据应用程序层定义进行切片，编译器的输出是一个已经对网络的切片定义和配置命令进行了切片后的整体控制程序，Splendid 的切片有三个组件：拓扑（路由器、端口、链接）、切片级别的拓扑元件与网络元件的映射、packets 上的 predicates。将不同的应用程序与每个切片相关联，编译器采用切片（拓扑，映射和谓词）和相应程序的组合来生成整个网络的全局配置。</p>
+<h3 id="3-dot-7-layer-vii-programming-languages">3.7 Layer VII: Programming Languages</h3>
+<p>对网络的可编程性要求正在从类似于 OpenFlow 的底层机器语言过渡到高层编程语言，底层语言本质上是模仿转发设备的行为，迫使开发人员在低级细节上花费过多时间，而不是在解决问题上花费太多时间。但是实现高层网络编程语言时总会遇到几个挑战，比如说如何是的单个应用程序的多任务之间不会互相影响，又或者是单个控制器上的多个应用程序规则之间冲突。</p>
+<p>程序语言可以为特定的管理需求提供相应的抽象，还有一个很重要的特点是提供可移植性。另一个通过语言来抽象的更有趣的特性是，可以创建虚拟网络拓扑并为其编写程序，就像是面向对象的语言模式一样。不用为每个转发设备生成和安装规则，而是创建一个虚拟拓扑，这个虚拟拓扑可以表示整个网络也可以是网络的一个子集，举例来说，与上面的基于语言的虚拟化类似，可以将整个网络抽象为一个大交换机。当然，同样的也可以将一个大交换机抽象成多个虚拟交换机。</p>
+<p>高级程序语言需要实现一下目标：</p>
+<ul>
+<li>避免传统网络配置方法中需要对低层和特定于设备进行配置，整个网络中各个部分互相依赖；</li>
+<li>提供抽象概念，以通过易于理解和维护的网络策略来完成不同的管理任务；</li>
+<li>解耦多个任务（例如，路由，访问控制，流量工程）；</li>
+<li>实现更高级别的编程接口，以避免出现低级指令集（麻烦）；</li>
+<li>解决转发规则问题，例如规则冲突或规则不完整，可能会阻止以自动方式触发切换事件；</li>
+<li>解决分布式系统固有的不同 race condition 问题；</li>
+<li>使用分布式决策生成器(decssion maker)在环境中增强解决冲突的技术；</li>
+<li>在数据平面路径设置上提供本机容错功能；</li>
+<li>减少处理新流的延迟；</li>
+<li>简化有状态应用程序（例如，有状态防火墙）的创建。</li>
+</ul>
+<p>值得注意的是，文章提到了一个关键的网络基础结构：<a href="http://frenetic-lang.org/merlin/merlin-hotnets2013.pdf"target="_blank">Merlin</a>，其是一个用于控制不同网络组件（例如转发设备，中间盒和终端主机）的统一框架。Merlin 为每种类型的组件生成特定的代码。 以策略定义为输入，Merlin 的编译器确定转发路径，转换位置和带宽分配。 编译后的输出是要安装在设备中的针对不同组件的低级指令集。 Merlin 的策略语言还允许运营商将子网的控制权委派给租户，同时确保隔离。 这种委托控制是通过策略来表达的，每个租户所有者可以进一步细化这些策略，从而使他们可以根据自己的特定需求自定义策略。</p>
+<h3 id="3-dot-8-layer-viii-network-applications">3.8 Layer VIII Network Applications</h3>
+<p>网络应用程序是网络的大脑，其主要用来指示转发设备的行为。文章举了一个例子，我觉得很好的揭示了 App 执行的过程：以路由来举例，这样的应用程序的逻辑是定义数据包从 A 点流向 B 点的路径。为了实现此目标，路由应用程序必须基于拓扑输入确定要使用的路径，然后指示控制器在从 A 到 B 的所选路径上的所有转发设备中安装相应的转发规则。</p>
+<p>按照分类，一般有这样一些应用程序：</p>
+<ul>
+<li><code>流量工程(traffic engineering)</code>
+<ul>
+<li>主要就是 QoS，负载均衡，规则放置的优化（这个可能不属于这个分类），使用 MAC 作为全局标签来实现数据中心的路由（这个说是数据中心网络也未尝不可啊），流管理、错误回复，拓扑更新和 traffic characterization（可能是流量特征，流量刻画？）。大多数目标是以最小化功耗，最大化网络总利用率，提供优化的负载平衡以及其他通用流量优化技术为目的来设计流量。还有为视频和数据串流提供应用感知的网络</li>
+<li>负载均衡的一个好处是可以让网络添加新设备变得很简单，自动将流量等任务分配给新设备。一个问题是如何让解决方法具有可扩展性，（一个方法是对 IP 前缀使用通配符来主动均衡，但是如果发现了阻塞就要是使用被动模式，这个是 tandem，可以研究看看）。现有的南向协议可以主动监测数据层的负载，可以用来优化网络的能源消耗，比如只能关闭连接和设备等；</li>
+<li>数据中心网络的重要目标之一是避免或减轻网络瓶颈对所提供的计算服务的运行的影响。线性二等分带宽(linear bisection bandwidth)是一种可用于通过探索数据中心拓扑中的路径分集，而对网络造成压力(这里是一个作动词的 stress)的流量模式的技术。这样的技术又被用来提高聚集网络的利用而减轻 schedule 花费；</li>
+<li>可以提供一个用来控制路由器配置的完全自治的系统，在用来提供虚拟聚集(aggregation)时很有用。可以用来减少路由表中的数据重复(how?)。</li>
+<li>路径优化是另一个非常重要的研究对象，在 scale 很大的服务商中，动态扩展是很重要的，比如 VPN。并且最近的研究表是<code>规则放置(rules palcement)</code>的优化也能很好的提高网络效率。</li>
+</ul>
+</li>
+<li><code>移动性和无线</code>
+<ul>
+<li>现有的分布式控制平台对无线网不适用于管理有限的频谱，分配无线电资源，实施切换机制，管理干扰以及在小区之间进行有效的负载平衡。</li>
+<li>一个方法是提供了可编程的灵活的 stack layers，OpenRadio 将无线协议定义与硬件解耦，允许使用商品多核平台跨不同协议共享 MAC 层。OpenRadio 可被视为“无线网络的 OpenFlow”。</li>
+<li>非常密集的异构无线网络也已成为 SDN 的目标。由于诸如无线电接入网络瓶颈，控制开销和高运营成本等约束，这些 DenseNet 具有局限性。 动态的两层 SDN 控制器层次结构可以适应这些约束中的某些约束。可以使用本地控制器来做出快速而细粒度的决策，而区域（或“全球”）控制器可以具有更广泛，更粗糙的粒度范围，即，执行速度较慢，但​​更具全局性的决策。以这种方式，设计具有挑战性的同时包含 LTE（宏_微微_毫微微）和 WiFi 小区的单一集成架构似乎是可行的。</li>
+</ul>
+</li>
+<li><code>测量和监视</code>
+<ul>
+<li>主要分为两种：1. 为其他网络服务提供新功能的应用程序；2. 旨在改善基于 OpenFlow 的 SDN 功能的提议，例如减少由于收集统计信息而引起的控制平面过载。</li>
+<li>第一种的一个做法是提高贷款性能的可视性，从而使系统能够对家庭网络中不断变化的状况做出反应。</li>
+<li>第二种就是利用各种技术（stochastic and deterministic pakcet sampling, traffic matrix estimation &hellip;）减少控制平面在数据平面统计信息收集方面的负担。基本原语之间的解耦（例如匹配和计数）和更重的流量分析功能（例如检测异常情况攻击）</li>
+</ul>
+</li>
+<li><code>安全性和可靠性</code>
+<ul>
+<li>同样的分为两种，一种是利用 SDN 来提高网络的安全性，另一种是提高 SDN 本身的安全性</li>
+<li>SDN 允许在网络入口处执行强制策略，转发设备使及时收集来自网络的各种信息变得更加容易，这对于专门用于检测 DDoS 泛洪攻击的算法非常方便。非常适合与实现<code>主动安全Active Security</code>。检测攻击的方法可以分为如下三步：
+<ul>
+<li>1）从不同来源收集数据（以识别攻击）；</li>
+<li>2）收敛到安全设备的一致配置；</li>
+<li>3）采取对策以阻止或最小化攻击的影响。</li>
+</ul>
+</li>
+<li>早期的方法试图应用简单的技术，例如对应用程序进行分类和使用规则优先级划分，以确保安全应用程序生成的规则不会被较低优先级的应用程序覆盖。其他更进一步的提议试图通过提供一个用于在 SDN 中开发与安全相关的应用程序的框架。然而目前还是很难保证安全。</li>
+</ul>
+</li>
+<li><code>数据中心网络</code>
+<ul>
+<li>实时网络迁移，改进的网络管理，避免重大故障， 从开发到生产网络的快速部署，故障排除，网络利用率的优化，中间盒即用的动态和弹性配置服务，并最小化流程建立延迟并降低控制器的运营成本。SDN 还可以为云应用程序提供网络原语，用于预测应用程序的网络传输的解决方案，对操作问题做出快速反应的机制，网络感知的 VM 放置，QoS 支持，实时网络监视和问题检测，安全策略执行服务和机制，并实现传输协议的程序化调整。</li>
+<li>为了充分利用云中虚拟网络的潜力，一项基本功能是虚拟网络迁移。 与传统虚拟机迁移类似，当虚拟网络的虚拟机从一个地方移动到另一个地方时，可能需要迁移虚拟网络。为了实现此目标，有必要动态地重新配置所有受影响的网络设备（物理或虚拟）。 事实证明，这对于 SDN 平台（例如 NVP ）是可行的。</li>
+<li>SDN 在数据中心的另一个潜在应用是检测网络运行中的异常行为，通过使用不同的行为模型并收集来自数据中心运营所涉及元素（基础架构，运营商，应用程序）的必要信息，可以通过被动捕获控制流量来为应用程序连续构建签名。 然后，签名历史可用于识别行为差异。 每次检测到差异时，操作员都可以采取反应或主动采取纠正措施。这可以帮助隔离异常组件并避免进一步破坏基础架构。</li>
+</ul>
+</li>
+<li><code>SDN App Stores</code>
+<ul>
+<li>如题。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-dot-9-cross-layer-issues">3.9 Cross-Layer Issues</h3>
+<h4 id="3-dot-9-dot-1-调试">3.9.1 调试：</h4>
+<p>SDN 基于硬件的，与软件无关的控制功能以及使用开放标准进行控制通信和灵活性和可编程性可以潜在地使调试和故障排除更加容易。</p>
+<p>ndb 提供类似于 gdb 的基本调试动作：breakpoint, watch, backtrace, single step.</p>
+<p>OFRewind 的想法是记录和重播网络事件，特别是控制消息，允许操作员执行网络行为的细粒度跟踪，能够决定将记录网络的哪些子集，然后选择要重播的跟踪的特定部分，这些重放可提供有价值的信息，以查找网络行为异常的根本原因。NetRevert 与之相似，但是其更加关注在发生故障的情况下提供回滚恢复，这是分布式系统中用于消除节点中的瞬时错误的常用方法。</p>
+<p>NetSight 可以重放 packet 的历史记录，packet 的历史记录与其用于遍历网络的路径相对应，并且在路径的每一跳中都对标头进行了修改，NetSight 其主要目标是允许使用数据包历史记录的应用程序被构建，以便发现网络中的问题。</p>
+<h4 id="3-dot-9-dot-2-测试和验证">3.9.2 测试和验证</h4>
+<p>验证技术可用于检测和避免 SDN 中的问题，例如转发循环和黑洞。</p>
+<p>NICE 生成一组不同的数据包流以测试尽可能多的事件，从而暴露出极端情况（例如竞争条件）。最终目标是测量控制应用程序和转发设备的处理能力和瓶颈。</p>
+<p>FlowChecker 验证系统上的正确性属性违规， Alloy 识别意外行为，FlowGuard 在启用 OpenFlow 的网络中检测并解决违反安全策略的问题。VeriCon 通过分析各种网络事件序列，验证 SDN 应用程序在各种网络拓扑中的正确性。</p>
+<p>Libra 用来解决大规模网络中的测试和验证问题，希望能越快越好地验证超大型网络中的转发表以查找路由错误，和可能会导致流量损失和安全漏洞。在大型网络中，由于路由状态的频繁更改，不可能假定网络快照在任何时候都是一致的。另一个重要问题与验证过程的完成速度有关，尤其是在时序要求非常严格的现代数据中心中。</p>
+<p>Anteater 通过将交换机配置编码为布尔可满足性问题（SAT）实例来分析网络设备的数据平面状态，从而允许使用 SAT 求解器来分析网络状态。</p>
+<h4 id="3-dot-9-dot-3-仿真">3.9.3 仿真</h4>
+<p>Just some different Simulate software.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -108,6 +258,12 @@
 </li>
 <li id="fn:2" role="doc-endnote">
 <p>一个运行在商品服务器技术上的软件平台，它基于逻辑上集中的抽象网络视图提供必要的资源和抽象，以促进转发设备的编程。 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>容器利用 Linux 特性实现隔离，主要有 2 个部分：<code>Namespace</code>，用来保证运行的进程的隔离性，其从宿主机中获得的资源（网络栈、进程列表和挂载点等）里获得仅自己可见的区域，对外界进程一无所知，放佛处于独占操作系统中；<code>CGroups</code>，用来限制环境中的资源使用情况，比如限制使用的 CPU 核心数、内存等。 <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>编排，自动化配置等。 <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
