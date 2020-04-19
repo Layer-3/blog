@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
-    <lastBuildDate>Sun, 05 Apr 2020 19:37:23 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0800</lastBuildDate>
     
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TransE，连接多关系实体</title>
+      <link>/posts/transe/</link>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/transe/</guid>
+      <description>Point 本次学习的是知识表示、知识工程、知识图谱之类的中一篇很重要的论文，TransE: Translating Embeddings for Modeling Multi-relational Data，讲述的是如何对多关系的实体进行连接。直</description>
+      
+    </item>
     
     <item>
       <title>Expression</title>

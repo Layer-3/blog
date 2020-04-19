@@ -1,0 +1,16 @@
+#+HUGO_BASE_DIR: ../
+#+TITLE: TransE，连接多关系实体
+#+DATE: 2020-04-19
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: Knowledge_Graph
+#+HUGO_CATEGORIES: Study
+#+HUGO_DRAFT: false
+
+* Point
+本次学习的是知识表示、知识工程、知识图谱之类的中一篇很重要的论文，=TransE: Translating Embeddings for Modeling Multi-relational Data=，讲述的是如何对多关系的实体进行连接。直接来讲就是要使得 `h+l=t`。
+
+* 需要知道的东西 
+
+
+* 问题：
+
