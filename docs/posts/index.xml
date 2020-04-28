@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
-    <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 Apr 2020 00:00:00 +0800</lastBuildDate>
     
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>知识图谱Embedding综述</title>
+      <link>/posts/kge-survey/</link>
+      <pubDate>Wed, 22 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/kge-survey/</guid>
+      <description>学习Knowledge Graph Embedding: A Survey of Approaches and Applications 1. 预备知识 这部分是我自己在阅读过过程中遇到不懂的地方，自行查阅记录，以供理解 Embedding:是一个</description>
+      
+    </item>
     
     <item>
       <title>TransE，连接多关系实体</title>

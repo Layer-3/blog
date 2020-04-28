@@ -1,0 +1,39 @@
+#+HUGO_BASE_DIR: ../
+#+TITLE: 知识图谱Embedding综述
+#+DATE: 2020-04-22
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: KnowledgeGraph NLP
+#+HUGO_CATEGORIES: Study
+#+HUGO_DRAFT: false
+
+/学习[[http://ieeexplore.ieee.org/abstract/document/8047276/][Knowledge Graph Embedding: A Survey of Approaches and Applications]]/
+
+* 1. 预备知识
+/这部分是我自己在阅读过过程中遇到不懂的地方，自行查阅记录，以供理解/
+- Embedding:是一个将离散变量转为连续向量表示的一个方式，不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。上面这句话的意思就是说，把词语拆成指定数量的特征维度，每一个词都可以用这些维度组合成的向量来表示（word embedding 的含义[fn:1]）。相对于稀疏的 one-hot 编码而言，这样的编码可以表示出不同的词语之间的临近关系。
+- tensor: 张量，在物理学中张量被定义为是一种无关于坐标系的物理量，不需要进行线性（坐标）变换，以统一的方式表达定理的物理量，但是在机器学习中，显然不是这个意思。张量在这里指的是一个多维的数据存储形式，维度被称之为张量的阶(mode)，可以看成向量和矩阵在多维空间的推广，即把向量看作一维张量，矩阵看作二维张量。上述信息和张量的一些运算法则可以参考这篇[[http://www.xiongfuli.com/机器学习/2016-06/tensor-decomposition-part1.html][文章]]
+- Circular Correlation: 循环相关，对应的是线性相关。相关反应的是同步性、相似性、同相性等，具体的计算方法就是给定位移量 m，计算 x 和 y+m 的对应的点的乘积的和，线性相关的计算公式为： $r_{xy}(m) = \sum_{n=-\infty}^{+\infty} x(n) y(n+m)$ 。循环相关稍微复杂一点，首先要将上面的有限序列通过向左循环移位得到周期序列（周期就是序列的原长度），然后套用公示进行计算： $r_{xy}(m) = \sum_{n=0}^{N-1} x(n) y((n+m))_N R_N(n)$ ，计算过程就是循环移位(偏移 m 是多少就移位多少)相乘的乘积和，具体计算过程和理论参考[[http://read.pudn.com/downloads70/ebook/254107/ch4.pdf][文章]]
+  - /计算示例/
+https://gitee.com/layer3/pic/raw/master/uPic/20200423213305-screen-shoot.png 
+
+* 2. 介绍
+** 2.1. 知识图谱
+知识图谱就是一个多关系图，由实体和关系组成，每个边都是一个三元组：(head, relation, tail)，这个三元组又被成为=fact=。
+
+** 2.2. 知识图谱嵌入
+知识图谱（KG）Embedding 是将包含实体和关系的 KG 组件嵌入到连续的向量空间中，以便简化操作，同时保留 KG 的固有结构。
+
+** 2.3. 知识图谱嵌入的通常做法
+给定一个 KG，嵌入技术首先使用连续向量空间表示实体和关系，并为每个 fact 定义一个评分函数以衡量其合理性。通过最大化已有的 fact 的得分来获得实体和关系的 Embed。
+
+#+begin_quote
+但是上述过程学习到的 Embedding 只在针对单个 fact 具有*compatible*，因此不具有*可预测性*。
+#+end_quote
+
+因此现在会考虑使用更多信息诸如：*实体类型、关系路径、文本描述、逻辑规则*来让 Embedding 更具有预测性。
+
+*具体来说就是只使用 fact 的方法不具有可预测性，因此需要结合其他信息。*
+
+* Footnotes
+
+[fn:1] 参考自https://www.zhihu.com/question/38002635
