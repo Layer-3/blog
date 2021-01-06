@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>TEST</title>
+      <link>https://ansont.cn/posts/new/</link>
+      <pubDate>Wed, 06 Jan 2021 00:00:00 +0800</pubDate>
+      
+      <guid>https://ansont.cn/posts/new/</guid>
+      <description>记录一件小事。 test</description>
+    </item>
+    
+    <item>
       <title>知识图谱Embedding综述</title>
       <link>https://ansont.cn/posts/kge-survey/</link>
       <pubDate>Wed, 22 Apr 2020 00:00:00 +0800</pubDate>
