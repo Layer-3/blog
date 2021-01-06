@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Learn on Layer 7</title>
-    <link>/categories/learn/</link>
+    <link>https://ansont.cn/categories/learn/</link>
     <description>Recent content in Learn on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
     <lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0800</lastBuildDate>
     
-        <atom:link href="/categories/learn/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ansont.cn/categories/learn/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>高级计算机网络学习笔记</title>
-      <link>/posts/ad_computer_network/</link>
+      <link>https://ansont.cn/posts/ad_computer_network/</link>
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/ad_computer_network/</guid>
+      <guid>https://ansont.cn/posts/ad_computer_network/</guid>
       <description>This is for Adcanced Computer Networks learn note Part I Datacnter Networks 1. FartTree 2. DCN-Portland 2.1 Abstract 2.2 Design 2.3 Implementation 2.4 Tips 与 FartTree 的连接方式不同，由于 FartTree 的连接方式是固定的，而 Portland 是没有固定的连接哪个交换机的哪个端口的要求</description>
-      
     </item>
     
   </channel>

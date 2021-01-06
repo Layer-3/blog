@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Knowledge_Graph on Layer 7</title>
-    <link>/tags/knowledge_graph/</link>
+    <link>https://ansont.cn/tags/knowledge_graph/</link>
     <description>Recent content in Knowledge_Graph on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
     <lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0800</lastBuildDate>
     
-        <atom:link href="/tags/knowledge_graph/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ansont.cn/tags/knowledge_graph/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>TransE，连接多关系实体</title>
-      <link>/posts/transe/</link>
+      <link>https://ansont.cn/posts/transe/</link>
       <pubDate>Sun, 19 Apr 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/transe/</guid>
+      <guid>https://ansont.cn/posts/transe/</guid>
       <description>Point 本次学习的是知识表示、知识工程、知识图谱之类的中一篇很重要的论文，TransE: Translating Embeddings for Modeling Multi-relational Data，讲述的是如何对多关系的实体进行连接。直</description>
-      
     </item>
     
   </channel>

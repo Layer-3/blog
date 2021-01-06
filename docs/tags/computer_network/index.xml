@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Computer_Network on Layer 7</title>
-    <link>/tags/computer_network/</link>
+    <link>https://ansont.cn/tags/computer_network/</link>
     <description>Recent content in Computer_Network on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
     <lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0800</lastBuildDate>
     
-        <atom:link href="/tags/computer_network/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ansont.cn/tags/computer_network/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>与主机上其他任务共享资源的分布式优化框架</title>
-      <link>/posts/flexible-distributed-optimization-fram/</link>
+      <link>https://ansont.cn/posts/flexible-distributed-optimization-fram/</link>
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/flexible-distributed-optimization-fram/</guid>
+      <guid>https://ansont.cn/posts/flexible-distributed-optimization-fram/</guid>
       <description>Table of Contents 1. 介绍 1.1 分布式优化 1.2 什么是次梯度 subgrdient 1.3 符号规定： 2. 模型与算法 2.1 问题模型 2.2 算法 3. 收敛结果 [](#) 1. 介绍 题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in Processing Networks 1.1 分布</description>
-      
     </item>
     
   </channel>

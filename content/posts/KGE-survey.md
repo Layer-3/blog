@@ -10,6 +10,7 @@ draft = false
 
 _学习[Knowledge Graph Embedding: A Survey of Approaches and Applications](http://ieeexplore.ieee.org/abstract/document/8047276/)_
 
+尝试输入一些奇奇怪怪的东西，看看能不能更新
 
 ## 1. 预备知识 {#1-dot-预备知识}
 

@@ -1,45 +1,42 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on Layer 7</title>
-    <link>/tags/network/</link>
+    <link>https://ansont.cn/tags/network/</link>
     <description>Recent content in Network on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
     <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0800</lastBuildDate>
     
-        <atom:link href="/tags/network/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ansont.cn/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>软件定义网络</title>
-      <link>/posts/sdn/</link>
+      <link>https://ansont.cn/posts/sdn/</link>
       <pubDate>Sun, 22 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/sdn/</guid>
+      <guid>https://ansont.cn/posts/sdn/</guid>
       <description>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进</description>
-      
     </item>
     
     <item>
       <title>OpenFlow</title>
-      <link>/posts/openflow/</link>
+      <link>https://ansont.cn/posts/openflow/</link>
       <pubDate>Thu, 19 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/openflow/</guid>
+      <guid>https://ansont.cn/posts/openflow/</guid>
       <description>1. 介绍 这是 SDN 开山之作“OpenFlow: Enabling Innovation in Campus Networks”的阅读笔记，想要学习 SDN 到底是什么，能做什么，为什么，怎么做，还可以怎么做，</description>
-      
     </item>
     
     <item>
       <title>高级计算机网络学习笔记</title>
-      <link>/posts/ad_computer_network/</link>
+      <link>https://ansont.cn/posts/ad_computer_network/</link>
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/ad_computer_network/</guid>
+      <guid>https://ansont.cn/posts/ad_computer_network/</guid>
       <description>This is for Adcanced Computer Networks learn note Part I Datacnter Networks 1. FartTree 2. DCN-Portland 2.1 Abstract 2.2 Design 2.3 Implementation 2.4 Tips 与 FartTree 的连接方式不同，由于 FartTree 的连接方式是固定的，而 Portland 是没有固定的连接哪个交换机的哪个端口的要求</description>
-      
     </item>
     
   </channel>

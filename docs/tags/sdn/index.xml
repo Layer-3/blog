@@ -1,35 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SDN on Layer 7</title>
-    <link>/tags/sdn/</link>
+    <link>https://ansont.cn/tags/sdn/</link>
     <description>Recent content in SDN on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
     <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0800</lastBuildDate>
     
-        <atom:link href="/tags/sdn/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ansont.cn/tags/sdn/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>软件定义网络</title>
-      <link>/posts/sdn/</link>
+      <link>https://ansont.cn/posts/sdn/</link>
       <pubDate>Sun, 22 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/sdn/</guid>
+      <guid>https://ansont.cn/posts/sdn/</guid>
       <description>软件定义网络即 SDN，是我一直以来想要研读的一个方向，在完成了 NSFC 的申请书之后，终于闲了一些，决定从头开始，先对 SDN 有个初步的了解，然后再深入进</description>
-      
     </item>
     
     <item>
       <title>OpenFlow</title>
-      <link>/posts/openflow/</link>
+      <link>https://ansont.cn/posts/openflow/</link>
       <pubDate>Thu, 19 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/posts/openflow/</guid>
+      <guid>https://ansont.cn/posts/openflow/</guid>
       <description>1. 介绍 这是 SDN 开山之作“OpenFlow: Enabling Innovation in Campus Networks”的阅读笔记，想要学习 SDN 到底是什么，能做什么，为什么，怎么做，还可以怎么做，</description>
-      
     </item>
     
   </channel>

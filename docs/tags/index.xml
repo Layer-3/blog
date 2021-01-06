@@ -1,105 +1,96 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Layer 7</title>
-    <link>/tags/</link>
+    <link>https://ansont.cn/tags/</link>
     <description>Recent content in Tags on Layer 7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2020 TW.</copyright>
     <lastBuildDate>Wed, 22 Apr 2020 00:00:00 +0800</lastBuildDate>
     
-        <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ansont.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>KnowledgeGraph</title>
-      <link>/tags/knowledgegraph/</link>
+      <link>https://ansont.cn/tags/knowledgegraph/</link>
       <pubDate>Wed, 22 Apr 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/knowledgegraph/</guid>
+      <guid>https://ansont.cn/tags/knowledgegraph/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>NLP</title>
-      <link>/tags/nlp/</link>
+      <link>https://ansont.cn/tags/nlp/</link>
       <pubDate>Wed, 22 Apr 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/nlp/</guid>
+      <guid>https://ansont.cn/tags/nlp/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>Knowledge_Graph</title>
-      <link>/tags/knowledge_graph/</link>
+      <link>https://ansont.cn/tags/knowledge_graph/</link>
       <pubDate>Sun, 19 Apr 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/knowledge_graph/</guid>
+      <guid>https://ansont.cn/tags/knowledge_graph/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>English</title>
-      <link>/tags/english/</link>
+      <link>https://ansont.cn/tags/english/</link>
       <pubDate>Sun, 05 Apr 2020 19:37:23 +0800</pubDate>
       
-      <guid>/tags/english/</guid>
+      <guid>https://ansont.cn/tags/english/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>Network</title>
-      <link>/tags/network/</link>
+      <link>https://ansont.cn/tags/network/</link>
       <pubDate>Sun, 22 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/network/</guid>
+      <guid>https://ansont.cn/tags/network/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>SDN</title>
-      <link>/tags/sdn/</link>
+      <link>https://ansont.cn/tags/sdn/</link>
       <pubDate>Sun, 22 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/sdn/</guid>
+      <guid>https://ansont.cn/tags/sdn/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>nothing</title>
-      <link>/tags/nothing/</link>
+      <link>https://ansont.cn/tags/nothing/</link>
       <pubDate>Thu, 19 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/nothing/</guid>
+      <guid>https://ansont.cn/tags/nothing/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>Computer_Network</title>
-      <link>/tags/computer_network/</link>
+      <link>https://ansont.cn/tags/computer_network/</link>
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/computer_network/</guid>
+      <guid>https://ansont.cn/tags/computer_network/</guid>
       <description></description>
-      
     </item>
     
     <item>
       <title>Infocom2019</title>
-      <link>/tags/infocom2019/</link>
+      <link>https://ansont.cn/tags/infocom2019/</link>
       <pubDate>Wed, 18 Mar 2020 00:00:00 +0800</pubDate>
       
-      <guid>/tags/infocom2019/</guid>
+      <guid>https://ansont.cn/tags/infocom2019/</guid>
       <description></description>
-      
     </item>
     
   </channel>
